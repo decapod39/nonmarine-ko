@@ -23,6 +23,7 @@ h1,h2{font-family:var(--serif);font-weight:600}h1{font-style:italic;font-size:cl
 .muted{color:var(--muted)}
 .btn{min-height:40px;padding:0 .85rem;border-radius:6px;border:0;display:inline-flex;align-items:center;justify-content:center;gap:.3rem}
 .btn-gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold) 45%,var(--gold-lo));color:#1a1408;font-weight:600}
+.btn.on{background:linear-gradient(180deg,var(--gold-hi),var(--gold) 45%,var(--gold-lo)) !important;color:#1a1408 !important;border-color:var(--gold) !important;font-weight:700}
 .btn-line{border:1px solid color-mix(in oklab,var(--gold) 40%,transparent);background:transparent;color:var(--gold)}
 .btn-ghost{background:none;border:0;color:var(--muted)}
 .btn-danger{background:color-mix(in oklab,var(--danger) 22%,transparent);color:#ffb4a8;border:1px solid color-mix(in oklab,var(--danger) 40%,transparent)}
@@ -52,6 +53,9 @@ h1,h2{font-family:var(--serif);font-weight:600}h1{font-style:italic;font-size:cl
 .empty{text-align:center;padding:1.8rem 1rem;color:var(--muted);border:1px dashed color-mix(in oklab,var(--gold) 25%,transparent);border-radius:10px}
 .crumb{display:flex;flex-wrap:wrap;gap:.25rem;font-size:.8rem;color:var(--muted);margin-bottom:.7rem}
 .crumb button{background:none;border:0;color:var(--muted);min-height:32px}
+.lin-name{display:flex;flex-direction:column;align-items:flex-start;min-width:0;line-height:1.2}
+.lin-name em{font-family:var(--serif);font-style:italic}
+.lin-name .ko{color:var(--muted);font-size:.75rem}
 
 .topbar{display:flex;align-items:center;gap:.55rem;padding:.5rem .8rem;border-bottom:1px solid color-mix(in oklab,var(--gold) 25%,transparent);background:color-mix(in oklab,var(--bg) 78%,transparent);backdrop-filter:blur(12px);position:sticky;top:0;z-index:30}
 .icon-btn{min-width:40px;min-height:40px;border-radius:8px;border:1px solid color-mix(in oklab,var(--gold) 35%,transparent);background:color-mix(in oklab,var(--bg-card) 70%,transparent);color:var(--gold);display:grid;place-items:center;position:relative}
@@ -500,12 +504,14 @@ body.boot-ready #root{/* visible */}
 .chat-name{background:none;border:0;color:var(--gold-soft);font-weight:600;padding:0;font-size:.9rem;cursor:pointer;font-family:inherit}
 .chat-text{font-size:.92rem;line-height:1.45;margin-top:.15rem;word-break:break-word}
 .chat-at{color:var(--gold-hi)}
-.chat-img{max-width:min(100%,280px);max-height:200px;border-radius:8px;margin-top:.4rem;display:block;border:1px solid color-mix(in oklab,var(--gold) 20%,transparent)}
-.chat-compose{display:grid;grid-template-columns:1fr auto;gap:.5rem;align-items:end}
-.chat-compose textarea{width:100%;min-height:3.2rem;resize:vertical;border-radius:10px;border:1px solid color-mix(in oklab,var(--gold) 28%,var(--line));background:var(--bg-inset);color:var(--ivory);padding:.55rem .65rem;font:inherit;grid-row:1 / span 2}
-.chat-compose-actions{display:flex;flex-direction:column;gap:.35rem;min-width:4.5rem}
-.chat-compose-actions .btn,.chat-compose-actions label.btn{width:100%;min-height:36px;margin:0;display:grid;place-items:center;font-size:.8rem}
-.chat-compose #pcprev{grid-column:1 / -1;font-size:.75rem;min-height:1em}
+.chat-img{max-width:min(72%,180px);max-height:140px;border-radius:10px;margin-top:.35rem;display:block;border:1px solid color-mix(in oklab,var(--gold) 22%,transparent);object-fit:cover}
+.chat-compose{display:flex;flex-direction:column;gap:.45rem}
+.chat-compose textarea{width:100%;min-height:3rem;resize:vertical;border-radius:12px;border:1px solid color-mix(in oklab,var(--gold) 28%,var(--line));background:var(--bg-inset);color:var(--ivory);padding:.6rem .7rem;font:inherit}
+.chat-compose-actions{display:flex;align-items:center;gap:.4rem}
+.chat-prev{display:flex;align-items:center;gap:.45rem}
+.chat-prev img{width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid color-mix(in oklab,var(--gold) 35%,transparent)}
+.chat-compose-actions .btn,.chat-compose-actions label.btn{min-height:34px;margin:0;display:inline-flex;align-items:center;font-size:.8rem}
+.chat-compose #pcprev{font-size:.75rem}
 
 @media(max-width:768px){
   .sidebar,.side-edge{display:none !important}
@@ -678,6 +684,58 @@ body.boot-ready #root{/* visible */}
   .main{height:auto;overflow:visible}
 }
 
+
+/* 다루기 쉬운 배치. 색과 분위기는 유지 */
+.site-chrome{position:sticky;top:0}
+.seg-wrap{position:static;top:auto;flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:.4rem;padding:.45rem .7rem}
+.seg-wrap::-webkit-scrollbar{display:none}
+.seg{flex:0 0 auto}
+.list-btn{width:100%;text-align:left}
+.panel{max-width:980px}
+@media(min-width:1100px){
+  .main{padding:1.35rem 1.8rem 2.2rem}
+  .sidebar{width:268px}
+  .tree-item{padding:.34rem .45rem;font-size:.92rem}
+  .seg{min-height:40px}
+}
+@media(max-width:768px){
+  .seg-wrap{padding:.4rem .55rem;gap:.32rem}
+  .seg{min-height:36px;padding:0 .85rem;font-size:.82rem}
+  .main{padding:.75rem .6rem calc(1.5rem + env(safe-area-inset-bottom))}
+  .topbar{padding-top:max(.4rem, env(safe-area-inset-top))}
+  .list-btn{padding:.7rem .75rem}
+  .btn{min-height:38px}
+  .panel{padding:.9rem .8rem}
+}
+.guide-card{align-items:center}
+.guide-thumb{width:64px;height:64px;flex:0 0 64px;border-radius:8px;overflow:hidden;border:1px solid color-mix(in oklab,var(--gold) 28%,transparent);background:color-mix(in oklab,var(--bg-inset) 80%,transparent);display:grid;place-items:center}
+.guide-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.guide-x{color:var(--muted);font-size:1.1rem}
+.site-chrome{position:sticky;top:0;z-index:40;background:color-mix(in oklab,var(--bg) 94%,transparent);backdrop-filter:blur(10px)}
+.topbar{display:flex;align-items:center;gap:.4rem;padding:.45rem .65rem;flex-wrap:nowrap}
+.topbar .spacer{display:none}
+.brand-mini{flex:1;min-width:0;display:flex;align-items:center;gap:.4rem}
+.brand-mini strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.92rem}
+.icon-btn{width:36px;height:36px;min-width:36px;min-height:36px;flex:0 0 auto}
+.nick-btn{max-width:6.5rem !important;flex:0 0 auto}
+.top-search{display:flex;align-items:center;gap:.4rem;padding:.3rem .65rem .5rem;position:static;top:auto}
+.top-search-wrap{flex:1;min-width:0}
+.seg-wrap{position:static;top:auto;flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;scrollbar-width:none}
+.seg-wrap::-webkit-scrollbar{display:none}
+.seg{flex:0 0 auto}
+@media(max-width:520px){
+  .brand-mini strong{font-size:.82rem}
+  .nick-btn span{display:none}
+  .nick-btn{padding:0 .3rem !important;min-width:36px}
+}
+.top-tools{display:flex;align-items:center;gap:.35rem;flex:0 0 auto}
+.top-more,.top-bell{display:none}
+@media(max-width:768px){
+  .top-tools{display:none}
+  .top-more,.top-bell{display:grid}
+}.fold-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:.6rem;background:none;border:0;color:var(--gold);font-family:var(--serif);font-size:1.15rem;padding:.15rem 0 .35rem;cursor:pointer}
+.fold-mark{font-size:.72rem;color:var(--muted);font-family:var(--sans)}
+.fold.shut .fold-body{display:none}
 .staff-nick{font-weight:700;color:var(--gold-soft)}
 .staff-badge{font-weight:700;font-size:.72em;color:var(--gold);letter-spacing:.02em;margin-left:.15rem}
 .chat-name .staff-badge{vertical-align:baseline}
@@ -858,7 +916,7 @@ function taxonMatchesCladeFilter(taxon, filter){
 }
 
 const ORN_RULES = {
-  landFamilies:["Gecarcinidae"], landGenera:["Geograpsus"],
+  landFamilies:["Gecarcinidae","Coenobitidae"], landGenera:["Geograpsus"],
   smallFamilies:["Glyptograpsidae"], smallGenera:["Sesarmops","Eriocheir","Ptychognathus"],
   smallSpecies:["Metopaulias depressus","Sesarma bidentatum"],
   largeGenera:["Geosesarma"],
@@ -868,7 +926,7 @@ const ORN_RULES = {
   thoSuper:["Grapsoidea","Ocypodoidea","Pinnotheroidea","Cryptochiroidea","Hymenosomatoidea"]
 };
 const ORN_HOME = [
-  {id:"land", label:"랜드크랩", sub:"속 단위 · Gecarcinidae · Geograpsus"},
+  {id:"land", label:"랜드크랩", sub:"속 단위 · Gecarcinidae · Coenobitidae · Geograpsus"},
   {id:"large", label:"대란형 민물크랩", sub:"상과·과 단위 · Geosesarma속만 별도"},
   {id:"small", label:"소란형 해수~기수•민물 크랩", sub:"속 단위 · Thoracotremata & True freshwater crab"}
 ];
@@ -897,7 +955,7 @@ function isThoFwClade(t){
   return isThoTaxon(t) || isTrueFwTaxon(t);
 }
 function isOrnamentalListed(t){
-  return !!(t && t.inOrnamental);
+  return !!(t && (t.inOrnamental || isCoenobitidaeLineage(t)));
 }
 function isMarineHeterotremata(t){
   const cl=cladeOf(t);
@@ -983,11 +1041,11 @@ function validParentRanks(rank){
   return [];
 }
 
-const SEGS = [{id:"home",label:"홈"},{id:"taxonomy",label:"종류"},{id:"slides",label:"갤러리"},{id:"chat",label:"채팅"},{id:"rankings",label:"기여 순위"}];
+const SEGS = [{id:"home",label:"홈"},{id:"taxonomy",label:"종류"},{id:"guides",label:"공유 가이드"},{id:"slides",label:"갤러리"},{id:"chat",label:"토론"},{id:"rankings",label:"기여 순위"},{id:"mypage",label:"마이"}];
 
 let _prevTaxonId=null;
 let _bootRitualDone=false;
-const S = { ready:false, loading:true, session:null, profile:null, taxa:{}, revisions:[], lifeFilter:"all", entered:false, siteLinkKorean:"", siteLinkOrnamental:"", segment:"home", sidebarOpen:true, segOpen:true, notifOpen:false, notifTab:"mine", notifFilter:"all", notifications:[], unread:0, view:null, slide:0, slideGallery:"all", slideFs:false, slideAuto:true, slideFade:true, slideMs:4500, slideTimer:null, modal:null, toast:"", rankings:[], guestPw:DEFAULT_GUEST_PW, bannedWords:[], carrierIps:[], search:"", speciesPage:0, editLock:(function(){try{return localStorage.getItem("edit_lock")||"off";}catch(e){return "off";}})(), sfCladeFilter:"all", sectionFold:{}, dismissedNotifs:JSON.parse(localStorage.getItem("brachy_dismissed_notifs")||"[]"), chatMode:"public", chatPeer:null, chatMention:"", publicChatResetDays:7, ornTrade:{}, ornSuggestions:[] };
+const S = { ready:false, loading:true, session:null, profile:null, taxa:{}, revisions:[], lifeFilter:"all", entered:false, siteLinkKorean:"", siteLinkOrnamental:"", siteLinkCrayfish:"", siteLinkDecapoda:"", segment:"home", sidebarOpen:true, segOpen:true, notifOpen:false, notifTab:"mine", notifFilter:"all", notifications:[], unread:0, view:null, slide:0, slideGallery:"all", slideFs:false, slideAuto:true, slideFade:true, slideMs:4500, slideTimer:null, modal:null, toast:"", rankings:[], guestPw:DEFAULT_GUEST_PW, bannedWords:[], carrierIps:[], search:"", speciesPage:0, editLock:(function(){try{return localStorage.getItem("edit_lock")||"off";}catch(e){return "off";}})(), sfCladeFilter:"all", sectionFold:{}, dismissedNotifs:JSON.parse(localStorage.getItem("brachy_dismissed_notifs")||"[]"), chatMode:"public", chatPeer:null, chatMention:"", publicChatResetDays:7, ornTrade:{}, ornSuggestions:[] };
 
 function linkify(text){
   const s=String(text||"");
@@ -1302,7 +1360,7 @@ function appendSubfamilyGenusTree(container, familyTaxon){
   }
   subfamilies.forEach(sf=>{
     const li=el(`<li></li>`);
-    const btn=el(`<button type="button" class="tax-item"><span class="chip">${RANK_LABEL.subfamily}</span><em>${esc(displaySciName(sf))}</em>${sf.koreanName?`<span class="muted" style="font-size:.78rem">${esc(sf.koreanName)}</span>`:""}</button>`);
+    const btn=el(`<button type="button" class="tax-item"><span class="chip">${RANK_LABEL.subfamily}</span>${lineageNameHtml(sf)}</button>`);
     btn.onclick=()=>{S.view={kind:"taxon",id:sf.id};render();};
     li.appendChild(btn);
     const gens=sortTaxa(childrenOf(sf.id).filter(k=>k.rank==="genus"&&lifeVisible(k)));
@@ -1310,7 +1368,7 @@ function appendSubfamilyGenusTree(container, familyTaxon){
       const ul=el(`<ul></ul>`);
       gens.forEach(g=>{
         const gli=el(`<li></li>`);
-        const gb=el(`<button type="button" class="tax-item"><span class="chip">${RANK_LABEL.genus}</span><em>${esc(displaySciName(g))}</em>${g.koreanName?`<span class="muted" style="font-size:.78rem">${esc(g.koreanName)}</span>`:""}</button>`);
+        const gb=el(`<button type="button" class="tax-item"><span class="chip">${RANK_LABEL.genus}</span>${lineageNameHtml(g)}</button>`);
         gb.onclick=()=>{S.view={kind:"taxon",id:g.id};render();};
         gli.appendChild(gb);
         ul.appendChild(gli);
@@ -1325,7 +1383,7 @@ function appendSubfamilyGenusTree(container, familyTaxon){
     }
     orphanGenera.forEach(g=>{
       const li=el(`<li class="tax-orphan"></li>`);
-      const btn=el(`<button type="button" class="tax-item"><span class="chip">${RANK_LABEL.genus}</span><em>${esc(displaySciName(g))}</em>${g.koreanName?`<span class="muted" style="font-size:.78rem">${esc(g.koreanName)}</span>`:""}</button>`);
+      const btn=el(`<button type="button" class="tax-item"><span class="chip">${RANK_LABEL.genus}</span>${lineageNameHtml(g)}</button>`);
       btn.onclick=()=>{S.view={kind:"taxon",id:g.id};render();};
       li.appendChild(btn);
       root.appendChild(li);
@@ -1338,7 +1396,7 @@ function childrenOf(pid){ return Object.values(S.taxa).filter(t=>t.parentId===pi
 function ancestorsOf(id){ const c=[]; let cur=S.taxa[id]; const g=new Set(); while(cur&&!g.has(cur.id)){ c.unshift(cur); g.add(cur.id); cur=cur.parentId?S.taxa[cur.parentId]:null; } return c; }
 function findBySci(n){ n=(n||"").trim().toLowerCase(); return Object.values(S.taxa).find(t=>t.scientificName.toLowerCase()===n); }
 function superfamilies(){ return Object.values(S.taxa).filter(t=>t.rank==="superfamily").sort((a,b)=>(a.catalogNo??0)-(b.catalogNo??0)); }
-function speciesPhotos(){ return Object.values(S.taxa).filter(t=>t.rank==="species"&&t.profileImageUrl&&lifeVisible(t)&&t.inOrnamental).sort((a,b)=>(ornPriority(b)-ornPriority(a))||a.scientificName.localeCompare(b.scientificName)); }
+function speciesPhotos(){ return Object.values(S.taxa).filter(t=>t.rank==="species"&&t.profileImageUrl&&lifeVisible(t)&&(t.inOrnamental||isCoenobitidaeLineage(t))).sort((a,b)=>(ornPriority(b)-ornPriority(a))||a.scientificName.localeCompare(b.scientificName)); }
 function homeSlidePhotos(){
   const list=speciesPhotos();
   if(!S._homeSlideIds || S._homeSlideIds.length!==list.length){
@@ -1708,6 +1766,8 @@ function findExistingTaxonBySci(sci){
 }
 function siteLinkKorean(){ return String(S.siteLinkKorean||"").trim(); }
 function siteLinkOrnamental(){ return String(S.siteLinkOrnamental||"").trim(); }
+function siteLinkCrayfish(){ return String(S.siteLinkCrayfish||"").trim(); }
+function siteLinkDecapoda(){ return String(S.siteLinkDecapoda||"").trim(); }
 function openSiteLink(url){
   const u=String(url||"").trim();
   if(!u){ toast("관리자가 아직 상대 도감 주소를 넣지 않았습니다"); return; }
@@ -1739,6 +1799,7 @@ async function loadAll(){
     let taxa={}; for(const r of taxaRows||[]){ if(r.id==="__wiki_config__") continue; const t=rowToTaxon(r); t._bodyLoaded=false; t.description=t.description||""; taxa[r.id]=t; }
     taxa=await seedIfEmpty(taxa);
     S.taxa=taxa;
+    Object.values(taxa).forEach(tx=>{ if(isCoenobitidaeLineage(tx)) tx.inOrnamental=true; });
     window.__crabTaxa = taxa;
     try{
       const fl=await sb.from("taxa").select("id,in_ornamental");
@@ -1758,6 +1819,8 @@ async function loadAll(){
       if(s.key==="edit_lock"){ S.editLock=(s.value||"off"); try{ if(s.value) localStorage.setItem("edit_lock",s.value); }catch(e){} }
       if(s.key==="site_link_korean") S.siteLinkKorean=s.value||"";
       if(s.key==="site_link_ornamental") S.siteLinkOrnamental=s.value||"";
+      if(s.key==="site_link_decapoda") S.siteLinkDecapoda=s.value||"";
+      if(s.key==="site_link_crayfish") S.siteLinkCrayfish=s.value||"";
       if(s.key==="carrier_ip_prefixes"){ try{S.carrierIps=JSON.parse(s.value);}catch{S.carrierIps=[];} }
       if(s.key==="public_chat_reset_days"){ S.publicChatResetDays=Math.max(1,Math.min(7,parseInt(s.value,10)||7)); }
       if(s.key==="public_chat_locked"){ S.publicChatLocked=(s.value==="1"||s.value==="true"); }
@@ -1767,6 +1830,7 @@ async function loadAll(){
     const cfg=(taxaRows||[]).find(r=>r.id==="__wiki_config__");
     if(cfg?.description){ try{ const j=JSON.parse(cfg.description); if(j.edit_password) S.guestPw=j.edit_password; }catch{} }
     await refreshSession();
+    try{ await loadShareGuides(); await loadStars(); }catch(e){}
     S.ready=true; try{document.body.classList.add("boot-ready")}catch(e){} try{pushAppState(true);}catch(e){};
     S.loading=false;
     try{ window.__bootMsg && __bootMsg("화면 그리는 중…"); }catch(e){}
@@ -2099,7 +2163,17 @@ function isThoracoLineage(t){
   }
   return false;
 }
+function isCoenobitidaeLineage(t){
+  let cur=t, g=0, seen=new Set();
+  while(cur && g++<24 && !seen.has(cur.id)){
+    seen.add(cur.id);
+    if(String(cur.scientificName||"").replace(/^†\s*/,"").toLowerCase()==="coenobitidae") return true;
+    cur=cur.parentId && S.taxa ? S.taxa[cur.parentId] : null;
+  }
+  return false;
+}
 function defaultOrnamentalFlag(t){
+  if(isCoenobitidaeLineage(t)) return true;
   if(typeof SITE_KIND!=="undefined" && SITE_KIND==="ornamental") return true;
   return !!(t && isThoracoLineage(t) && !isOrnamentalExcludedLineage(t));
 }
@@ -2152,8 +2226,9 @@ async function saveTaxon(taxon,summary){
   }
   if(typeof SITE_KIND!=="undefined" && SITE_KIND==="ornamental"){
     if(!S.taxa[taxon.id]) taxon.inOrnamental=true;
-  } else if(taxon.inOrnamental==null){
-    taxon.inOrnamental=defaultOrnamentalFlag(taxon);
+  } else if(taxon.inOrnamental==null || isCoenobitidaeLineage(taxon)){
+    if(isCoenobitidaeLineage(taxon)) taxon.inOrnamental=true;
+    else if(taxon.inOrnamental==null) taxon.inOrnamental=defaultOrnamentalFlag(taxon);
   }
   if(containsBanned(taxon.description)||containsBanned(summary)) throw new Error("금지어 포함");
   let row=taxonToRow(taxon);
@@ -2216,6 +2291,22 @@ let _ac=null, _sfxReady=false, _sfxMuted=false; // 방문마다 효과음 ON
 // --- BGM: Dreams Of River Ganga (Hanu Dixit) ---
 const BGM_URL="bgm.mp3";
 const SITE_KIND="ornamental";
+
+const CHAT_ROOMS=[
+  {id:"crayfish", label:"관상용 가재 도감"},
+  {id:"ornamental", label:"관상용 게 도감"},
+  {id:"korean", label:"한국어 게 도감"},
+  {id:"decapoda", label:"한국어 십각류 도감"}
+];
+function orderedChatRooms(){
+  return [...CHAT_ROOMS.filter(r=>r.id===SITE_KIND), ...CHAT_ROOMS.filter(r=>r.id!==SITE_KIND)];
+}
+function activeChatRoom(){
+  return (S.chatRoom && CHAT_ROOMS.some(r=>r.id===S.chatRoom)) ? S.chatRoom : SITE_KIND;
+}
+function chatRoomLabel(id){
+  return (CHAT_ROOMS.find(r=>r.id===id)||{}).label || id;
+}
 let _bgmOn=false;
 try{ _bgmOn=localStorage.getItem("orn_bgm")==="1"; }catch(e){}
 let _bgmAudio=null, _bgmUnlockBound=false;
@@ -2510,20 +2601,31 @@ function navTo(patch){
 let _renderTimer=null;
 let _authQuiet=false; // 로그인·로그아웃 연쇄 render 억제
 let _chromeLastY=0,_chromeBound=false;
+function applyChromeHidden(){
+  const ch=document.getElementById("site-chrome");
+  if(ch) ch.classList.toggle("chrome-hide", !!S.chromeHidden);
+}
 function setupChromeScroll(){
   if(_chromeBound) return;
   _chromeBound=true;
-  _chromeLastY=window.scrollY||0;
-  window.addEventListener("scroll",()=>{
-    const ch=document.getElementById("site-chrome");
-    if(!ch) return;
-    const y=window.scrollY||0;
-    const dy=y-_chromeLastY;
-    if(y<40) ch.classList.remove("chrome-hide");
-    else if(dy>8) ch.classList.add("chrome-hide");
-    else if(dy<-8) ch.classList.remove("chrome-hide");
-    _chromeLastY=y;
-  },{passive:true});
+  let lastY=0, acc=0, ticking=false;
+  const readY=()=>{
+    const main=document.querySelector(".main");
+    return Math.max(window.scrollY||0, document.documentElement.scrollTop||0, document.body.scrollTop||0, main?main.scrollTop:0);
+  };
+  const commit=()=>{
+    ticking=false;
+    const y=readY();
+    const dy=y-lastY;
+    lastY=y;
+    if(y<48){ if(S.chromeHidden){ S.chromeHidden=false; } acc=0; return; }
+    acc+=dy;
+    if(acc>28 && !S.chromeHidden){ S.chromeHidden=true; acc=0; applyChromeHidden(); }
+    else if(acc<-28 && S.chromeHidden){ S.chromeHidden=false; acc=0; applyChromeHidden(); }
+  };
+  const onScroll=()=>{ if(ticking) return; ticking=true; requestAnimationFrame(commit); };
+  window.addEventListener("scroll", onScroll, {passive:true});
+  document.addEventListener("scroll", onScroll, {capture:true, passive:true});
 }
 function scheduleRender(ms){
   clearTimeout(_renderTimer);
@@ -2545,14 +2647,38 @@ function scrollMainToTop(){
     try{ window.scrollTo(0,0); }catch(e){}
   }catch(e){}
 }
+function renderKeepScroll(){
+  const y=window.scrollY||document.documentElement.scrollTop||0;
+  const mains=[...document.querySelectorAll(".main,.shell,.sidebar-scroll")].map(el=>el.scrollTop);
+  const rails=[...document.querySelectorAll(".gallery-cats,.tabs-mini")].map(el=>el.scrollLeft);
+  S._scrollTopAfterRender=false;
+  render();
+  const restore=()=>{
+    try{ window.scrollTo(0,y); }catch(e){}
+    document.querySelectorAll(".main,.shell,.sidebar-scroll").forEach((el,i)=>{ if(mains[i]!=null) el.scrollTop=mains[i]; });
+    document.querySelectorAll(".gallery-cats,.tabs-mini").forEach((el,i)=>{ if(rails[i]!=null) el.scrollLeft=rails[i]; });
+  };
+  restore();
+  requestAnimationFrame(restore);
+  setTimeout(restore,60);
+  setTimeout(restore,180);
+}
 function maybeScrollTopAfterNav(){
-  // 상위 탭(홈·슬라이드·채팅·기여순위)만 단순 전환 시에는 유지, 그 외(계통 문서 이동·페이지 넘김)는 맨 위
+  if(S._scrollToSpecies){
+    S._scrollToSpecies=false;
+    requestAnimationFrame(()=>{
+      const el=document.getElementById("home-species");
+      if(el) el.scrollIntoView({block:"start",behavior:"auto"});
+    });
+    return;
+  }
+  // 상위 탭(홈·슬라이드·토론·기여순위)만 단순 전환 시에는 유지, 그 외(계통 문서 이동·페이지 넘김)는 맨 위
   try{
     const key=[S.segment, S.view&&S.view.kind, S.view&&S.view.id, S.rankPage, S.mediaPage, S.spPage].join("|");
     const prev=window._navScrollKey;
     window._navScrollKey=key;
     if(prev===key && !S._scrollTopAfterRender) return;
-    const topOnly=["home","slides","chat","rankings"];
+    const topOnly=["home","taxonomy","guides","slides","chat","rankings","mypage"];
     const onlyTopTab=topOnly.includes(S.segment) && !S.view && !S._scrollTopAfterRender;
     if(onlyTopTab && prev!=null){
       const prevSeg=(prev.split("|")[0]||"");
@@ -2564,7 +2690,7 @@ function maybeScrollTopAfterNav(){
 }
 
 function render(fromSchedule){
-  if(!fromSchedule && _renderTimer){ clearTimeout(_renderTimer); _renderTimer=null; }
+    if(!fromSchedule && _renderTimer){ clearTimeout(_renderTimer); _renderTimer=null; }
   // 로딩 완료 후 · 시작 버튼 전 게이트
   if(S.ready && !S.loading && !S.entered){
     const root=document.getElementById("root");
@@ -2579,11 +2705,32 @@ function render(fromSchedule){
         <h1 style="font-style:normal;margin:.35rem 0 .5rem;font-size:1.35rem">Brachyura</h1>
         <p class="muted" style="font-size:.9rem;line-height:1.6;margin:0 0 1.15rem">${intro}</p>
         <button type="button" class="btn btn-gold" id="enterBtn" style="width:100%;min-height:48px;font-size:1rem;letter-spacing:.04em">관상용 게 도감 열람하기</button>
-        <p class="muted" style="font-size:.78rem;line-height:1.55;margin:.7rem 0 0">또는 더 많은 해수크랩을 보러가려면 <button type="button" id="toKr" class="wiki-link" style="display:inline;padding:0;border:0;background:none;color:var(--gold);text-decoration:underline;cursor:pointer;font:inherit">한국어 게 도감</button> 가기</p>
+        <div class="site-link-stack" style="margin-top:.9rem;display:flex;flex-direction:column;gap:.45rem">
+          <div class="side-title" style="margin:0">다른 도감 둘러보기</div>
+          <button type="button" id="toKr" class="btn btn-line site-link-btn" data-atlas="korean" style="width:100%;min-height:44px;justify-content:center">한국어 게 도감</button>
+          <button type="button" id="toOrn" class="btn btn-line site-link-btn" data-atlas="ornamental" style="width:100%;min-height:44px;justify-content:center">관상용 게 도감</button>
+          <button type="button" id="toCray" class="btn btn-line site-link-btn" data-atlas="crayfish" style="width:100%;min-height:44px;justify-content:center">관상용 가재 도감</button>
+          <button type="button" id="toDec" class="btn btn-line site-link-btn" data-atlas="decapoda" style="width:100%;min-height:44px;justify-content:center">한국어 십각류 도감</button>
+        </div>
       </div>
     </div>`);
-    const toKr=gate.querySelector("#toKr");
-    if(toKr) toKr.onclick=()=>openSiteLink(siteLinkKorean());
+    const goAtlas=(kind)=>{
+      if(kind===SITE_KIND){
+        gate.querySelector("#enterBtn").click();
+        return;
+      }
+      const url=kind==="korean"?siteLinkKorean():kind==="ornamental"?siteLinkOrnamental():kind==="crayfish"?siteLinkCrayfish():siteLinkDecapoda();
+      openSiteLink(url);
+    };
+    gate.querySelectorAll(".site-link-btn").forEach(btn=>{
+      const kind=btn.getAttribute("data-atlas");
+      if(kind===SITE_KIND){
+        btn.classList.remove("btn-line");
+        btn.classList.add("btn-gold");
+        btn.textContent=(btn.textContent||"").replace(" · 현재","")+" · 현재";
+      }
+      btn.onclick=()=>goAtlas(kind);
+    });
     gate.querySelector("#enterBtn").onclick=()=>{
       S.entered=true;
       _bgmOn=true;
@@ -2618,11 +2765,18 @@ function render(fromSchedule){
   if(S.loading&&!S.ready){ root.innerHTML=`<div class="main" style="display:grid;place-items:center;min-height:80dvh"><div class="panel"><div class="gold">관상게 도감</div><h1 style="font-style:normal">불러오는 중…</h1></div></div>`; return; }
   const chrome=el(`<div class="site-chrome" id="site-chrome"></div>`);
   const top=el(`<div class="topbar"></div>`);
-  const nb=el(`<button type="button" class="icon-btn" title="알림">🔔${S.unread?`<span class="badge">${S.unread}</span>`:""}</button>`); nb.onclick=()=>{S.notifOpen=!S.notifOpen;render();}; top.appendChild(nb);
+  const tools=el(`<div class="top-tools"></div>`);
+  const nb=el(`<button type="button" class="icon-btn" title="알림">🔔${S.unread?`<span class="badge">${S.unread}</span>`:""}</button>`); nb.onclick=()=>{S.notifOpen=!S.notifOpen;render();}; tools.appendChild(nb);
   const gearBtn=el(`<button type="button" class="icon-btn" title="설정">⚙</button>`);
-  gearBtn.onclick=()=>{S.segment="options";S.view=null;S.slideFs=false;S.modal=null;render();}; top.appendChild(gearBtn);
+  gearBtn.onclick=()=>{S.segment="options";S.view=null;S.slideFs=false;S.modal=null;render();}; tools.appendChild(gearBtn);
   const menuBtn=el(`<button type="button" class="icon-btn" title="메뉴">☰</button>`);
-  menuBtn.onclick=()=>{S.modal={type:"quickMenu"};render();}; top.appendChild(menuBtn);
+  menuBtn.onclick=()=>{S.modal={type:"quickMenu"};render();}; tools.appendChild(menuBtn);
+  top.appendChild(tools);
+  top.appendChild(nb.cloneNode(true)).onclick=()=>{S.notifOpen=!S.notifOpen;render();};
+  top.lastChild.classList.add("top-bell");
+  const more=el(`<button type="button" class="icon-btn top-more" title="더보기">⋯</button>`);
+  more.onclick=()=>{S.modal={type:"topMore"};render();};
+  top.appendChild(more);
   const brand=el(`<button type="button" class="brand-mini"><img src="${ASSET_CRAB}" alt=""/><strong>관상게 도감</strong></button>`); brand.onclick=()=>{S.segment="home";S.view=null;S.slideFs=false;render();}; top.appendChild(brand);
   top.appendChild(el(`<div class="spacer"></div>`));
   if(isAdmin()){ const ad=el(`<button type="button" class="btn btn-gold admin-chip" title="관리">관리</button>`); ad.onclick=()=>{S.modal={type:"adminHub"};render();}; top.appendChild(ad); }
@@ -2652,7 +2806,7 @@ function render(fromSchedule){
   chrome.appendChild(tsw);
 
   
-  if(!(S.segment==="slides"&&S.slideFs&&!S.segOpen)){ const seg=el(`<div class="seg-wrap ${S.segment==="slides"&&!S.segOpen?"hidden":""}"></div>`); SEGS.forEach(s=>{ const b=el(`<button type="button" class="seg ${S.segment===s.id?"on":""}">${s.label}</button>`); b.onclick=()=>{S.segment=s.id;S.view=null;S.slideFs=false; if(s.id==="slides") S._jiggleSlide=true; render();}; seg.appendChild(b); }); chrome.appendChild(seg); }
+  if(!(S.segment==="slides"&&S.slideFs&&!S.segOpen)){ const seg=el(`<div class="seg-wrap ${S.segment==="slides"&&!S.segOpen?"hidden":""}"></div>`); SEGS.forEach(s=>{ const b=el(`<button type="button" class="seg ${S.segment===s.id?"on":""}">${s.label}</button>`); b.onclick=()=>{S.segment=s.id;S.view=null;S.slideFs=false; if(s.id==="slides") S._jiggleSlide=true; render();}; seg.appendChild(b); }); chrome.appendChild(seg); const on=seg.querySelector(".seg.on"); if(on) on.scrollIntoView({inline:"center",block:"nearest"}); applyChromeHidden(); }
   root.appendChild(chrome);
 
   
@@ -2688,8 +2842,10 @@ function render(fromSchedule){
   }
   else if(S.segment==="home") main.appendChild(viewHome());
   else if(S.segment==="taxonomy") main.appendChild(viewTaxHub());
+  else if(S.segment==="guides") main.appendChild(viewGuides());
   else if(S.segment==="slides") main.appendChild(isBlocked()?el(`<div class="panel"><p>차단 중에는 이용할 수 없습니다.</p></div>`):viewSlides());
   else if(S.segment==="chat") main.appendChild(viewChat());
+  else if(S.segment==="mypage") main.appendChild(viewMyPage());
   else if(S.segment==="rankings") main.appendChild(isBlocked()?el(`<div class="panel"><p>차단 중에는 이용할 수 없습니다.</p></div>`):viewRanks());
   else if(S.segment==="options") main.appendChild(viewOpts());
   shell.appendChild(main); root.appendChild(shell);
@@ -2823,7 +2979,7 @@ function viewHome(){
   filterOpts.forEach(([id,lab])=>{
     const on=(S.sfCladeFilter||"all")===id;
     const b=el(`<button type="button" class="sf-filter ${on?"on":""}" title="${esc(lab)}">${esc(lab)}</button>`);
-    b.onclick=()=>{ try{sfx("tap")}catch(e){} S.sfCladeFilter=id; S.speciesPage=0; S._spOrder=null; render(); };
+    b.onclick=()=>{ try{sfx("tap")}catch(e){} S.sfCladeFilter=id; S.speciesPage=0; S._spOrder=null; S._scrollToSpecies=true; render(); };
     filters.appendChild(b);
   });
   w.appendChild(filters);
@@ -2883,7 +3039,7 @@ function viewHome(){
   const slice=ordered.slice(S.speciesPage*per, S.speciesPage*per+per);
   const filterLab=cladeF==="all"?"전체":((ORN_HOME.find(c=>c.id===cladeF)||{}).label||cladeF);
 
-  const bioHead=el(`<div style="margin:1.15rem 0 .45rem;display:flex;justify-content:space-between;align-items:end;gap:.5rem;flex-wrap:wrap">
+  const bioHead=el(`<div id="home-species" style="margin:1.15rem 0 .45rem;display:flex;justify-content:space-between;align-items:end;gap:.5rem;flex-wrap:wrap">
     <div>
       <div class="side-title">Catalog · 상과 하위</div>
       <h2 class="gold-text" style="margin:0">생물 목록</h2>
@@ -2911,18 +3067,18 @@ function viewHome(){
   const pager=el(`<div class="sp-pager"></div>`);
   const prev=el(`<button type="button" class="btn btn-line">이전</button>`);
   prev.disabled=S.speciesPage<=0;
-  prev.onclick=()=>{ if(S.speciesPage>0){ S.speciesPage--; render(); } };
+  prev.onclick=()=>{ if(S.speciesPage>0){ S.speciesPage--; S._scrollToSpecies=true; render(); } };
   const info=el(`<span class="muted">${ordered.length? (S.speciesPage+1)+" / "+pages : "0"}</span>`);
   const next=el(`<button type="button" class="btn btn-line">다음</button>`);
   next.disabled=S.speciesPage>=pages-1 || !ordered.length;
-  next.onclick=()=>{ if(S.speciesPage<pages-1){ S.speciesPage++; render(); } };
+  next.onclick=()=>{ if(S.speciesPage<pages-1){ S.speciesPage++; S._scrollToSpecies=true; render(); } };
   pager.appendChild(prev); pager.appendChild(info); pager.appendChild(next);
   w.appendChild(pager);
   return w;
 }
 function viewTaxHub(){
   const w=el(`<div></div>`);
-  w.appendChild(el(`<div class="panel"><div class="side-title">종류</div><h1 style="font-style:normal">종류</h1><p class="muted" style="margin:.4rem 0 0;font-size:.9rem">관상용으로 표시된 분류만 나열합니다.</p></div>`));
+  w.appendChild(el(`<div class="panel"><div class="side-title">종류</div><h1 style="font-style:normal">종류</h1><p class="muted" style="margin:.4rem 0 0;font-size:.9rem">비해양성 게와 일부 조간대 게가 포함됩니다</p></div>`));
   const tree=el(`<div class="phylo panel" style="margin-top:.85rem"></div>`);
   const root=el(`<div class="phylo-root"><span class="phylo-label gold-text">관상게 도감 분류</span><span class="muted phylo-sub">랜드 · 대란형 · 소란형</span></div>`);
   tree.appendChild(root);
@@ -2969,6 +3125,531 @@ function viewTaxHub(){
   w.appendChild(tree);
   return w;
 }
+function lineageNameHtml(t){
+  if(!t) return "";
+  const ko=t.koreanName?`<span class="ko">${esc(t.koreanName)}</span>`:"";
+  return `<span class="lin-name"><em>${esc(displaySciName(t))}</em>${ko}</span>`;
+}
+
+const GUIDE_CATS=[
+  {id:"all",label:"전체"},
+  {id:"pet-crab",label:"애완용 게 관련"},
+  {id:"crab",label:"게 관련"},
+  {id:"crayfish",label:"가재 관련"},
+  {id:"shrimp",label:"새우 관련"},
+  {id:"other",label:"기타 십각류 관련"}
+];
+const GUIDE_SORTS=[{id:"hot",label:"인기 순"},{id:"new",label:"최신순"}];
+function guideCatLabel(id){ return (GUIDE_CATS.find(c=>c.id===id)||{}).label || id || "기타"; }
+function guideIdNew(prefix){ return prefix+"-"+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function guideCanEdit(g){ return !!(g && isLogged() && (isAdmin() || g.author_id===S.session?.user?.id)); }
+async function loadShareGuides(){
+  S.guides=S.guides||[]; S.guideTaxa=S.guideTaxa||{}; S.guideLikes=S.guideLikes||{};
+  try{
+    const {data,error}=await sb.from("share_guides").select("*").order("updated_at",{ascending:false}).limit(300);
+    if(error) throw error;
+    S.guides=data||[];
+    const {data:links}=await sb.from("share_guide_taxa").select("guide_id,taxon_id");
+    const map={};
+    (links||[]).forEach(r=>{ (map[r.taxon_id]=map[r.taxon_id]||[]).push(r.guide_id); });
+    S.guideTaxa=map;
+    S._guideLinks=links||[];
+    S.guideLikes={};
+    if(isLogged()){
+      const {data:likes}=await sb.from("share_guide_likes").select("guide_id").eq("user_id", S.session.user.id);
+      (likes||[]).forEach(r=>{ S.guideLikes[r.guide_id]=true; });
+    }
+    S._guideErr="";
+  }catch(e){ console.warn("share guides", e); S._guideErr=e.message||String(e); }
+}
+function guidesForTaxon(id){
+  const ids=new Set((S.guideTaxa&&S.guideTaxa[id])||[]);
+  return (S.guides||[]).filter(g=>ids.has(g.id));
+}
+function sortedGuides(list){
+  const sort=S.guideSort||"hot";
+  const score=g=>(Number(g.likes)||0)*3+(Number(g.views)||0);
+  return [...list].sort((a,b)=>{
+    const ap=a.pinned?1:0, bp=b.pinned?1:0;
+    if(ap!==bp) return bp-ap;
+    if(sort==="new") return String(b.created_at||b.updated_at||"").localeCompare(String(a.created_at||a.updated_at||""));
+    return score(b)-score(a) || String(b.updated_at||"").localeCompare(String(a.updated_at||""));
+  });
+}
+function guideMeta(g){
+  return `${g.pinned?"고정 · ":""}좋아요 ${Number(g.likes)||0} · 조회 ${Number(g.views)||0}`;
+}
+function foldSection(title, count, bodyEl){
+  const shut=count>4;
+  const box=el(`<div class="fold ${shut?"shut":""}"></div>`);
+  const head=el(`<button type="button" class="fold-head"><span>${esc(title)}</span><span class="fold-mark">${shut?"펼치기":"접기"}</span></button>`);
+  const body=el(`<div class="fold-body"></div>`);
+  body.appendChild(bodyEl);
+  head.onclick=()=>{
+    box.classList.toggle("shut");
+    const m=head.querySelector(".fold-mark");
+    if(m) m.textContent=box.classList.contains("shut")?"펼치기":"접기";
+  };
+  box.appendChild(head); box.appendChild(body);
+  return box;
+}
+function appendRelatedGuides(panel, taxon){
+  if(!panel || !taxon) return;
+  const guides=sortedGuides(guidesForTaxon(taxon.id));
+  const box=el(`<div style="margin-top:1.15rem"></div>`);
+  const gbody=el(`<div></div>`);
+  if(!guides.length) gbody.appendChild(el(`<div class="empty">없음</div>`));
+  else guides.forEach(g=>{
+    const b=el(`<button type="button" class="list-btn"><span class="chip">${esc(guideCatLabel(g.category))}</span><em>${esc(g.title)}</em><span class="muted" style="margin-left:.35rem;font-size:.75rem">${esc(guideMeta(g))}</span></button>`);
+    b.onclick=()=>{ S.segment="guides"; S.guideId=g.id; render(); };
+    gbody.appendChild(b);
+  });
+  box.appendChild(foldSection("관련 공유 가이드", guides.length, gbody));
+  panel.appendChild(box);
+}
+async function loadStars(){
+  S.stars=S.stars||{};
+  if(!isLogged()){ S.stars={}; return; }
+  try{
+    const {data,error}=await sb.from("taxon_stars").select("taxon_id").eq("user_id", S.session.user.id);
+    if(error) throw error;
+    S.stars={};
+    (data||[]).forEach(r=>{ S.stars[r.taxon_id]=true; });
+  }catch(e){ console.warn("stars", e); }
+}
+function isStarred(id){ return !!(S.stars&&S.stars[id]); }
+async function toggleStar(taxon){
+  if(!taxon) return;
+  if(!isLogged()){ toast("찜은 로그인 후 가능합니다"); return; }
+  try{
+    if(isStarred(taxon.id)) await sb.from("taxon_stars").delete().eq("user_id", S.session.user.id).eq("taxon_id", taxon.id);
+    else await sb.from("taxon_stars").insert({user_id:S.session.user.id, taxon_id:taxon.id});
+    await loadStars(); render();
+  }catch(e){ alert("찜 테이블이 필요합니다. SQL을 실행해 주세요."); }
+}
+function viewMyPage(){
+  const w=el(`<div class="panel"></div>`);
+  if(!isLogged()){ w.appendChild(el(`<h1 style="font-style:normal">마이페이지</h1><p>로그인 후 볼 수 있습니다.</p>`)); return w; }
+  const tab=S.myTab||"posts";
+  w.appendChild(el(`<div class="side-title">My</div><h1 style="font-style:normal;margin:.15rem 0 .7rem">마이페이지</h1>`));
+  const bar=el(`<div class="tabs-mini" style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.8rem"></div>`);
+  [["posts","내가 쓴 글"],["likes","하트한 글"],["stars","즐겨찾기"],["contrib","기여 내역"]].forEach(([id,lab])=>{
+    const b=el(`<button type="button" class="btn ${tab===id?"btn-gold on":"btn-line"}" style="min-height:32px;font-size:.78rem">${lab}</button>`);
+    b.onclick=()=>{ S.myTab=id; renderKeepScroll(); };
+    bar.appendChild(b);
+  });
+  w.appendChild(bar);
+  const uid=S.session.user.id;
+  if(tab==="posts"){
+    const list=(S.guides||[]).filter(g=>g.author_id===uid);
+    if(!list.length) w.appendChild(el(`<div class="empty">작성한 가이드 없음</div>`));
+    list.forEach(g=>{
+      const b=el(`<button type="button" class="list-btn" style="width:100%;text-align:left"><em>${esc(g.title)}</em><span class="muted" style="display:block;font-size:.75rem;margin-top:.15rem">${esc(guideCatLabel(g.category))} · ♥ ${Number(g.likes)||0}</span></button>`);
+      b.onclick=()=>{ S.segment="guides"; S.guideId=g.id; render(); };
+      w.appendChild(b);
+    });
+  } else if(tab==="likes"){
+    const list=(S.guides||[]).filter(g=>S.guideLikes&&S.guideLikes[g.id]);
+    if(!list.length) w.appendChild(el(`<div class="empty">하트한 글 없음</div>`));
+    list.forEach(g=>{
+      const b=el(`<button type="button" class="list-btn" style="width:100%;text-align:left"><em>${esc(g.title)}</em><span class="muted" style="display:block;font-size:.75rem;margin-top:.15rem">♥ ${Number(g.likes)||0} · 조회 ${Number(g.views)||0}</span></button>`);
+      b.onclick=()=>{ S.segment="guides"; S.guideId=g.id; render(); };
+      w.appendChild(b);
+    });
+  } else if(tab==="stars"){
+    const ids=Object.keys(S.stars||{});
+    if(!ids.length) w.appendChild(el(`<div class="empty">즐겨찾기 없음</div>`));
+    ids.forEach(id=>{
+      const t=S.taxa&&S.taxa[id];
+      const b=el(`<button type="button" class="list-btn" style="width:100%;text-align:left"><span class="chip">${esc(t?(RANK_LABEL[t.rank]||t.rank):"")}</span><em style="font-family:var(--serif)">${esc(t?displaySciName(t):id)}</em><span class="muted" style="margin-left:.35rem">${esc(t&&t.koreanName||"")}</span></button>`);
+      b.onclick=()=>{ S.segment="taxonomy"; S.view={kind:"taxon",id}; render(); };
+      w.appendChild(b);
+    });
+  } else {
+    const mine=(S.revisions||[]).filter(r=>r.editorUserId===uid);
+    if(!mine.length) w.appendChild(el(`<div class="empty">이번 기록에 기여 내역 없음</div>`));
+    mine.slice(0,40).forEach(r=>{
+      const t=S.taxa&&S.taxa[r.taxonId];
+      const b=el(`<button type="button" class="list-btn" style="width:100%;text-align:left"><em>${esc(t?displaySciName(t):r.taxonId)}</em><span class="muted" style="display:block;font-size:.75rem;margin-top:.15rem">${esc(r.summary||"수정")} · ${r.at?new Date(r.at).toLocaleString("ko-KR"):""}</span></button>`);
+      if(t) b.onclick=()=>{ S.segment="taxonomy"; S.view={kind:"taxon",id:r.taxonId}; render(); };
+      w.appendChild(b);
+    });
+  }
+  return w;
+}
+function guideBodyImages(g){
+  let body=g&&g.body_images;
+  if(typeof body==="string"){ try{ body=JSON.parse(body); }catch(e){ body=[]; } }
+  return Array.isArray(body)?body:[];
+}
+function guidePhotoItems(){
+  const out=[];
+  (S.guides||[]).forEach(g=>{
+    const urls=[];
+    if(g.profile_image_url) urls.push(g.profile_image_url);
+    guideBodyImages(g).forEach(im=>{ const u=typeof im==="string"?im:(im&&(im.url||im.src)); if(u) urls.push(u); });
+    urls.forEach((url,i)=>{
+      out.push({id:"guideimg-"+g.id+"-"+i, rank:"guide", scientificName:g.title||"공유 가이드", koreanName:guideCatLabel(g.category), profileImageUrl:url, profileImageCaption:"", profileImageLicense:"", _guideId:g.id});
+    });
+  });
+  return out;
+}
+function openGalleryPhoto(p){
+  if(!p) return;
+  S.slideFs=false; try{ stopSlideTimer(); }catch(e){}
+  if(p._guideId){ S.segment="guides"; S.guideId=p._guideId; S.view=null; }
+  else { S.segment="taxonomy"; S.view={kind:"taxon",id:p.id}; }
+  render();
+}
+function guidePhotoFields(panel, draft){
+  draft.body_images=guideBodyImages(draft);
+  const box=el(`<div></div>`);
+  box.appendChild(el(`<div class="side-title" style="margin-top:.5rem">프로필 사진</div>`));
+  const prev=el(`<div class="guide-thumb" style="width:88px;height:88px;margin:.3rem 0">${draft.profile_image_url?`<img src="${esc(draft.profile_image_url)}" alt=""/>`:`<span class="guide-x">✕</span>`}</div>`);
+  const row=el(`<div style="display:flex;gap:.4rem;flex-wrap:wrap"></div>`);
+  const file=el(`<label class="btn btn-line" style="min-height:32px">프로필 선택<input type="file" accept="image/*" hidden></label>`);
+  file.querySelector("input").onchange=(e)=>{
+    const f=e.target.files?.[0]; if(!f) return;
+    if(f.size>1400000){ toast("이미지는 1.4MB 이하로"); return; }
+    const rd=new FileReader();
+    rd.onload=()=>{ draft.profile_image_url=rd.result; prev.innerHTML=`<img src="${draft.profile_image_url}" alt=""/>`; };
+    rd.readAsDataURL(f);
+  };
+  const clear=el(`<button type="button" class="btn btn-ghost" style="min-height:32px">빼기</button>`);
+  clear.onclick=()=>{ draft.profile_image_url=""; prev.innerHTML=`<span class="guide-x">✕</span>`; };
+  row.appendChild(file); row.appendChild(clear);
+  box.appendChild(prev); box.appendChild(row);
+  box.appendChild(el(`<div class="side-title" style="margin-top:.7rem">본문 사진</div><p class="muted" style="font-size:.75rem;margin:.15rem 0 .35rem">체크박스 옆 복사를 누른 뒤 본문에 붙여넣으세요.</p>`));
+  const blist=el(`<div></div>`);
+  const paint=()=>{
+    blist.innerHTML="";
+    if(!draft.body_images.length) blist.appendChild(el(`<div class="empty">없음</div>`));
+    draft.body_images.forEach((im,i)=>{
+      const url=typeof im==="string"?im:(im&&im.url)||"";
+      const cmd=`[[파일:${i}]]`;
+      const item=el(`<div style="display:flex;align-items:center;gap:.45rem;margin:.35rem 0;flex-wrap:wrap"><span class="guide-thumb">${url?`<img src="${esc(url)}" alt=""/>`:`<span class="guide-x">✕</span>`}</span><label style="display:flex;align-items:center;gap:.35rem;flex:1;min-width:8rem;font-size:.8rem;cursor:pointer"><input type="checkbox" checked style="accent-color:var(--gold)"/><code style="font-size:.75rem">${esc(cmd)}</code></label></div>`);
+      const copy=el(`<button type="button" class="btn btn-gold" style="min-height:28px;font-size:.72rem">복사</button>`);
+      copy.onclick=async()=>{
+        const chk=item.querySelector("input");
+        if(chk && !chk.checked){ toast("체크박스를 켠 뒤 복사하세요"); return; }
+        try{ await navigator.clipboard.writeText(cmd); toast("복사했습니다. 본문에 붙여넣으세요"); }
+        catch(e){ window.prompt("복사 후 본문에 붙여넣기:", cmd); }
+      };
+      const rm=el(`<button type="button" class="btn btn-line" style="min-height:28px;font-size:.72rem">빼기</button>`);
+      rm.onclick=()=>{ draft.body_images.splice(i,1); paint(); };
+      item.appendChild(copy); item.appendChild(rm); blist.appendChild(item);
+    });
+  };
+  paint();
+  const add=el(`<label class="btn btn-line" style="min-height:32px;margin-top:.35rem">본문 사진 추가<input type="file" accept="image/*" hidden></label>`);
+  add.querySelector("input").onchange=(e)=>{
+    const f=e.target.files?.[0]; if(!f) return;
+    if(f.size>1400000){ toast("이미지는 1.4MB 이하로"); return; }
+    const rd=new FileReader();
+    rd.onload=()=>{ draft.body_images.push({url:rd.result, caption:""}); paint(); };
+    rd.readAsDataURL(f);
+  };
+  box.appendChild(blist); box.appendChild(add);
+  panel.appendChild(box);
+}
+function viewGuides(){
+  const w=el(`<div></div>`);
+  if(S.guideId){ w.appendChild(viewGuideDetail(S.guideId)); return w; }
+  if(S.guideDraft){ w.appendChild(viewGuideEditor(S.guideDraft)); return w; }
+  w.appendChild(viewGuideList());
+  return w;
+}
+function guideThumb(g){
+  if(g&&g.profile_image_url) return g.profile_image_url;
+  const own=guideBodyImages(g);
+  if(own.length){ const im=own[0]; const u=typeof im==="string"?im:(im&&im.url); if(u) return u; }
+  const ids=(S._guideLinks||[]).filter(r=>r.guide_id===g.id).map(r=>r.taxon_id);
+  for(const id of ids){
+    const t=S.taxa&&S.taxa[id];
+    if(!t) continue;
+    if(t.profileImageUrl) return t.profileImageUrl;
+    const body=Array.isArray(t.bodyImages)?t.bodyImages:[];
+    for(const im of body){
+      const url=typeof im==="string"?im:(im&&(im.url||im.src));
+      if(url) return url;
+    }
+  }
+  return "";
+}
+function viewGuideList(){
+  const panel=el(`<div class="panel"></div>`);
+  panel.appendChild(el(`<div class="side-title">Guides</div><h1 style="font-style:normal;margin:.2rem 0 .45rem">공유 가이드</h1><p class="muted" style="margin:0 0 .7rem">동정, 사육, 채집처럼 도감 주제에 관한 글을 올리고 댓글을 답니다. 고정 글이 맨 위에 옵니다.</p>`));
+  const bar=el(`<div class="tabs-mini gallery-cats" style="margin:0 0 .45rem;display:flex;flex-wrap:nowrap;gap:.35rem;overflow-x:auto"></div>`);
+  const cat=S.guideCat||"all";
+  GUIDE_CATS.forEach(c=>{
+    const on=cat===c.id;
+    const b=el(`<button type="button" class="btn ${on?"btn-gold on":"btn-line"}" style="min-height:32px;font-size:.75rem;flex:0 0 auto;white-space:nowrap">${esc(c.label)}</button>`);
+    b.onclick=()=>{ if(S.guideCat===c.id) return; S.guideCat=c.id; renderKeepScroll(); };
+    bar.appendChild(b);
+  });
+  panel.appendChild(bar);
+  const sortBar=el(`<div class="tabs-mini" style="margin:0 0 .7rem;display:flex;gap:.35rem"></div>`);
+  GUIDE_SORTS.forEach(s=>{
+    const on=(S.guideSort||"hot")===s.id;
+    const b=el(`<button type="button" class="btn ${on?"btn-gold on":"btn-line"}" style="min-height:30px;font-size:.75rem">${esc(s.label)}</button>`);
+    b.onclick=()=>{ if((S.guideSort||"hot")===s.id) return; S.guideSort=s.id; renderKeepScroll(); };
+    sortBar.appendChild(b);
+  });
+  panel.appendChild(sortBar);
+  if(isLogged()){
+    const add=el(`<button type="button" class="btn btn-gold" style="margin-bottom:.7rem">글쓰기</button>`);
+    add.onclick=()=>{ S.guideDraft={id:guideIdNew("g"), title:"", category:cat==="all"?"other":cat, body:"== 개요 ==\n", isNew:true, taxa:[]}; render(); };
+    panel.appendChild(add);
+  } else panel.appendChild(el(`<p class="muted" style="font-size:.82rem">글과 댓글은 로그인 후 작성할 수 있습니다.</p>`));
+  if(S._guideErr) panel.appendChild(el(`<div class="empty">공유 가이드 테이블 확인 필요 (SQL 실행)</div>`));
+  const list=sortedGuides((S.guides||[]).filter(g=>cat==="all" || g.category===cat));
+  if(!list.length) panel.appendChild(el(`<div class="empty">글 없음</div>`));
+  list.forEach(g=>{
+    const thumb=guideThumb(g);
+    const b=el(`<button type="button" class="list-btn guide-card" style="width:100%;display:flex;align-items:center;gap:.7rem;text-align:left"><span style="flex:1;min-width:0"><em style="display:block;font-style:normal;font-weight:650">${esc(g.title)}</em><span class="muted" style="display:block;margin-top:.28rem;font-size:.78rem">♥ ${Number(g.likes)||0}　👁 ${Number(g.views)||0}</span></span><span class="guide-thumb">${thumb?`<img src="${esc(thumb)}" alt=""/>`:`<span class="guide-x">✕</span>`}</span></button>`);
+    b.onclick=()=>{ S.guideId=g.id; S.guideDraft=null; render(); };
+    panel.appendChild(b);
+  });
+  return panel;
+}
+function guideTaxonPicker(box, draft){
+  draft.taxa=draft.taxa||(S._guideLinks||[]).filter(r=>r.guide_id===draft.id).map(r=>r.taxon_id);
+  const chosen=el(`<div id="gchosen"></div>`);
+  const paint=()=>{
+    chosen.innerHTML="";
+    if(!draft.taxa.length) chosen.appendChild(el(`<div class="empty">연결된 문서 없음</div>`));
+    draft.taxa.forEach(id=>{
+      const t=S.taxa&&S.taxa[id];
+      const row=el(`<div class="list-btn" style="display:flex;justify-content:space-between;align-items:center"><span><em style="font-family:var(--serif)">${esc(t?displaySciName(t):id)}</em> <span class="muted">${esc(t&&t.koreanName||"")}</span></span></div>`);
+      const rm=el(`<button type="button" class="btn btn-line" style="min-height:28px;font-size:.72rem">빼기</button>`);
+      rm.onclick=()=>{ draft.taxa=draft.taxa.filter(x=>x!==id); paint(); };
+      row.appendChild(rm); chosen.appendChild(row);
+    });
+  };
+  box.appendChild(el(`<div class="side-title" style="margin-top:.4rem">관련 종 · 계통</div>`));
+  box.appendChild(chosen); paint();
+  const q=el(`<label class="field"><span>검색해서 추가</span><input id="gq" placeholder="학명 · 국명" autocomplete="off"/></label>`);
+  const hits=el(`<div></div>`);
+  box.appendChild(q); box.appendChild(hits);
+  q.querySelector("#gq").oninput=()=>{
+    const s=(q.querySelector("#gq").value||"").trim().toLowerCase();
+    hits.innerHTML="";
+    if(!s) return;
+    Object.values(S.taxa||{}).filter(t=>`${t.scientificName} ${t.koreanName}`.toLowerCase().includes(s) && !draft.taxa.includes(t.id)).slice(0,8).forEach(t=>{
+      const b=el(`<button type="button" class="list-btn" style="width:100%;text-align:left"><span class="chip">${esc(RANK_LABEL[t.rank]||t.rank)}</span><em style="font-family:var(--serif)">${esc(displaySciName(t))}</em><span class="muted" style="margin-left:.3rem">${esc(t.koreanName||"")}</span></button>`);
+      b.onclick=()=>{ draft.taxa.push(t.id); q.querySelector("#gq").value=""; hits.innerHTML=""; paint(); };
+      hits.appendChild(b);
+    });
+  };
+}
+function viewGuideEditor(draft){
+  const panel=el(`<div class="panel"></div>`);
+  panel.appendChild(el(`<h2 class="gold" style="font-family:var(--serif);margin-top:0">${draft.isNew?"가이드 작성":"가이드 수정"}</h2>`));
+  panel.appendChild(el(`<p class="muted" style="font-size:.8rem;margin:-.2rem 0 .6rem">본문은 기존 문서와 같은 위키 형식입니다. == 문단 == 을 쓸 수 있습니다.</p>`));
+  panel.appendChild(el(`<label class="field"><span>제목 *</span><input id="gtitle" value="${esc(draft.title||"")}" autocomplete="off"/></label>`));
+  panel.appendChild(el(`<label class="field"><span>대분류</span><select id="gcat">${GUIDE_CATS.filter(c=>c.id!=="all").map(c=>`<option value="${c.id}" ${draft.category===c.id?"selected":""}>${esc(c.label)}</option>`).join("")}</select></label>`));
+  panel.appendChild(el(`<label class="field"><span>본문 (RAW)</span><textarea id="gbody" rows="12" style="width:100%;min-height:180px">${esc(draft.body||"")}</textarea></label>`));
+  guidePhotoFields(panel, draft);
+  guideTaxonPicker(panel, draft);
+  const row=el(`<div style="display:flex;flex-direction:column;gap:.45rem;margin-top:.6rem"></div>`);
+  const save=el(`<button type="button" class="btn btn-gold">저장</button>`);
+  const cancel=el(`<button type="button" class="btn btn-ghost">취소</button>`);
+  save.onclick=async()=>{
+    const title=(panel.querySelector("#gtitle").value||"").trim();
+    const category=panel.querySelector("#gcat").value||"other";
+    const body=(panel.querySelector("#gbody").value||"").trim();
+    if(!title){ toast("제목을 입력하세요"); return; }
+    if(!isLogged()){ toast("로그인이 필요합니다"); return; }
+    const profile=await materializeImageUrl(draft.profile_image_url||"", "guides");
+    const bodyImgs=[];
+    for(const im of (draft.body_images||[])){
+      const raw=typeof im==="string"?im:(im&&im.url)||"";
+      if(!raw) continue;
+      bodyImgs.push({url:await materializeImageUrl(raw, "guides"), caption:(im&&im.caption)||""});
+    }
+    const rec={id:draft.id, title, category, body, profile_image_url:profile, body_images:bodyImgs, author_id:draft.author_id||S.session.user.id, author_name:draft.author_name||displayName().slice(0,24), updated_at:new Date().toISOString()};
+    try{
+      const {error}=await sb.from("share_guides").upsert(rec);
+      if(error) throw error;
+      await sb.from("share_guide_taxa").delete().eq("guide_id", draft.id);
+      if(draft.taxa&&draft.taxa.length){
+        const {error:e2}=await sb.from("share_guide_taxa").insert(draft.taxa.map(taxon_id=>({guide_id:draft.id, taxon_id})));
+        if(e2) throw e2;
+      }
+      S.guideDraft=null; S.guideId=draft.id;
+      await loadShareGuides();
+      toast("저장됨"); render();
+    }catch(e){ alert(e.message||e); }
+  };
+  cancel.onclick=()=>{ S.guideDraft=null; render(); };
+  row.appendChild(save); row.appendChild(cancel); panel.appendChild(row);
+  return panel;
+}
+async function bumpGuideView(g){
+  if(!g) return;
+  S._guideSeen=S._guideSeen||new Set();
+  if(S._guideSeen.has(g.id)) return;
+  S._guideSeen.add(g.id);
+  g.views=(Number(g.views)||0)+1;
+  try{ await sb.from("share_guides").update({views:g.views}).eq("id", g.id); }catch(e){}
+}
+function viewGuideDetail(id){
+  const g=(S.guides||[]).find(x=>x.id===id);
+  const w=el(`<div class="panel"></div>`);
+  if(!g){ w.appendChild(el(`<p>글을 찾을 수 없습니다.</p>`)); const back=el(`<button class="btn btn-ghost" id="back">목록</button>`); back.onclick=()=>{S.guideId=null;render();}; w.appendChild(back); return w; }
+  bumpGuideView(g);
+  const back=el(`<button type="button" class="btn btn-line" style="min-height:32px;margin-bottom:.55rem">목록</button>`);
+  back.onclick=()=>{ S.guideId=null; render(); };
+  w.appendChild(back);
+  w.appendChild(el(`<div class="side-title">${esc(guideCatLabel(g.category))}${g.pinned?" · 고정":""}</div><h1 style="font-style:normal;margin:.15rem 0 .3rem">${esc(g.title)}</h1><p class="muted" style="font-size:.8rem;margin:0 0 .7rem">${esc(g.author_name||"")} · ${(g.updated_at||g.created_at||"").slice(0,10)} · ${esc(guideMeta(g))}</p>`));
+  const actions=el(`<div style="display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin-bottom:.75rem"></div>`);
+  if(guideCanEdit(g)){
+    const edit=el(`<button type="button" class="btn btn-line" style="min-height:32px;font-size:.78rem;padding:.15rem .65rem">수정</button>`);
+    edit.onclick=()=>{ S.guideDraft={...g, isNew:false, taxa:(S._guideLinks||[]).filter(r=>r.guide_id===g.id).map(r=>r.taxon_id)}; S.guideId=null; render(); };
+    actions.appendChild(edit);
+  }
+  if(isAdmin()){
+    const pin=el(`<button type="button" class="btn ${g.pinned?"btn-gold on":"btn-line"}" style="min-height:32px;font-size:.78rem;padding:.15rem .65rem">${g.pinned?"고정됨":"고정"}</button>`);
+    pin.onclick=async()=>{
+      try{ await sb.from("share_guides").update({pinned:!g.pinned}).eq("id", g.id); await loadShareGuides(); render(); }
+      catch(e){ alert(e.message||e); }
+    };
+    actions.appendChild(pin);
+  }
+  const del=el(`<button type="button" class="btn btn-ghost" style="min-height:32px;font-size:.78rem;margin-left:auto">${isLogged()?"삭제":"삭제 문의"}</button>`);
+  del.onclick=async()=>{
+    if(!isLogged()){
+      S.modal={type:"report",kind:"suggestion",preset:`[공유 가이드 삭제 문의] ${g.title} (id:${g.id})`};
+      render();
+      return;
+    }
+    if(!(isAdmin() || g.author_id===S.session.user.id)){ toast("작성자만 삭제할 수 있습니다"); return; }
+    if(!confirm("이 글을 삭제할까요? 댓글과 연결도 함께 지워집니다.")) return;
+    try{
+      await sb.from("share_guides").delete().eq("id", g.id);
+      S.guideId=null; await loadShareGuides(); toast("삭제됨"); render();
+    }catch(e){ alert(e.message||e); }
+  };
+  actions.appendChild(del);
+  w.appendChild(actions);
+  if(g.profile_image_url) w.appendChild(el(`<div class="guide-thumb" style="width:120px;height:120px;margin:0 0 .7rem">${`<img src="${esc(g.profile_image_url)}" alt=""/>`}</div>`));
+  w.appendChild(buildWikiDom({id:g.id, description:g.body||"", bodyImages:guideBodyImages(g), _bodyLoaded:true}));
+  const links=(S._guideLinks||[]).filter(r=>r.guide_id===g.id);
+  const rel=el(`<div style="margin-top:1rem"></div>`);
+  rel.appendChild(el(`<h2 style="color:var(--gold)">관련 종 · 계통</h2>`));
+  if(!links.length) rel.appendChild(el(`<div class="empty">없음</div>`));
+  links.forEach(r=>{
+    const t=S.taxa&&S.taxa[r.taxon_id];
+    const b=el(`<button type="button" class="list-btn" style="width:100%;text-align:left"><em style="font-family:var(--serif)">${esc(t?displaySciName(t):r.taxon_id)}</em><span class="muted" style="margin-left:.35rem">${esc(t&&t.koreanName||"")}</span></button>`);
+    b.onclick=()=>{ S.segment="taxonomy"; S.view={kind:"taxon",id:r.taxon_id}; S.guideId=null; render(); };
+    rel.appendChild(b);
+  });
+  w.appendChild(rel);
+  w.appendChild(guideCommentBox(g));
+  return w;
+}
+async function notifyGuideAuthor(g, text){
+  if(!g || !g.author_id || !isLogged() || g.author_id===S.session.user.id) return;
+  try{
+    await sb.from("notifications").insert({
+      user_id:g.author_id, audience:"user", kind:"guide_comment",
+      title:"내 가이드에 댓글",
+      body:`${displayName().slice(0,24)} · ${g.title}`,
+      meta:{guide_id:g.id}
+    });
+  }catch(e){ console.warn("guide notify", e); }
+}
+function guideCommentBox(g){
+  const box=el(`<div style="margin-top:1.1rem"></div>`);
+  const head=el(`<div style="display:flex;align-items:center;gap:.5rem;margin-top:.4rem"></div>`);
+  head.appendChild(el(`<h2 style="color:var(--gold);margin:0">댓글</h2>`));
+  const like=el(`<button type="button" class="btn ${S.guideLikes&&S.guideLikes[g.id]?"btn-gold on":"btn-line"}" style="min-height:30px;font-size:.78rem;margin-left:auto;padding:.1rem .65rem">${S.guideLikes&&S.guideLikes[g.id]?"♥":"♡"} ${Number(g.likes)||0}</button>`);
+  like.onclick=async()=>{
+    if(!isLogged()){ toast("좋아요는 로그인 후 가능합니다"); return; }
+    try{
+      if(S.guideLikes[g.id]){
+        await sb.from("share_guide_likes").delete().eq("guide_id", g.id).eq("user_id", S.session.user.id);
+        g.likes=Math.max(0,(Number(g.likes)||0)-1);
+      } else {
+        await sb.from("share_guide_likes").insert({guide_id:g.id, user_id:S.session.user.id});
+        g.likes=(Number(g.likes)||0)+1;
+      }
+      await sb.from("share_guides").update({likes:g.likes}).eq("id", g.id);
+      await loadShareGuides(); render();
+    }catch(e){ alert(e.message||e); }
+  };
+  head.appendChild(like);
+  box.appendChild(head);
+  const list=el(`<div class="muted">불러오는 중…</div>`);
+  box.appendChild(list);
+  const paint=(rows)=>{
+    list.innerHTML="";
+    if(!rows.length){ list.appendChild(el(`<div class="empty">댓글 없음</div>`)); return; }
+    const byParent={};
+    rows.forEach(c=>{ const k=c.parent_id||""; (byParent[k]=byParent[k]||[]).push(c); });
+    const draw=(parent, depth)=>{
+      (byParent[parent]||[]).forEach(c=>{
+        const item=el(`<div style="margin:${depth?".35rem":".7rem"} 0 .7rem ${depth*1.05}rem;padding-left:.7rem;border-left:2px solid color-mix(in oklab,var(--gold) ${depth?18:32}%,transparent)"></div>`);
+        item.appendChild(el(`<div style="font-size:.82rem"><b>${esc(c.author_name||"")}</b> <span class="muted" style="font-size:.72rem">${esc((c.created_at||"").slice(0,16).replace("T"," "))}</span></div>`));
+        item.appendChild(el(`<div style="margin-top:.2rem;white-space:pre-wrap;font-size:.9rem;line-height:1.45">${esc(c.body||"")}</div>`));
+        const acts=el(`<div style="display:flex;gap:.55rem;margin-top:.2rem"></div>`);
+        if(isLogged()){
+          const reply=el(`<button type="button" class="btn btn-ghost" style="min-height:24px;font-size:.72rem;padding:0">답글</button>`);
+          reply.onclick=()=>{ S.guideReplyTo=c.id; render(); };
+          acts.appendChild(reply);
+        }
+        if(isLogged() && (isAdmin() || c.author_id===S.session?.user?.id)){
+          const rm=el(`<button type="button" class="btn btn-ghost" style="min-height:24px;font-size:.72rem;padding:0">삭제</button>`);
+          rm.onclick=async()=>{
+            if(!confirm("이 댓글을 삭제할까요?")) return;
+            try{ await sb.from("share_guide_comments").delete().eq("id", c.id); render(); }
+            catch(e){ alert(e.message||e); }
+          };
+          acts.appendChild(rm);
+        }
+        item.appendChild(acts);
+        if(S.guideReplyTo===c.id && isLogged()){
+          const ta=el(`<textarea rows="2" placeholder="답글" style="width:100%;margin-top:.35rem"></textarea>`);
+          const send=el(`<button type="button" class="btn btn-gold" style="margin-top:.3rem">답글 등록</button>`);
+          send.onclick=async()=>{
+            const body=(ta.value||"").trim(); if(!body) return;
+            try{
+              await sb.from("share_guide_comments").insert({id:guideIdNew("gc"), guide_id:g.id, parent_id:c.id, body, author_id:S.session.user.id, author_name:displayName().slice(0,24)});
+              await notifyGuideAuthor(g, body);
+              S.guideReplyTo=null; toast("답글 등록"); render();
+            }catch(e){ alert(e.message||e); }
+          };
+          item.appendChild(ta); item.appendChild(send);
+        }
+        list.appendChild(item);
+        draw(c.id, depth+1);
+      });
+    };
+    draw("", 0);
+  };
+  (async()=>{
+    try{
+      const {data,error}=await sb.from("share_guide_comments").select("*").eq("guide_id", g.id).order("created_at",{ascending:true});
+      if(error) throw error;
+      paint(data||[]);
+    }catch(e){ list.innerHTML=`<div class="empty">댓글 테이블 확인 필요</div>`; }
+  })();
+  if(isLogged()){
+    const ta=el(`<textarea id="gcbody" rows="3" placeholder="댓글" style="width:100%;margin-top:.5rem"></textarea>`);
+    const send=el(`<button type="button" class="btn btn-gold" style="margin-top:.4rem">댓글 달기</button>`);
+    send.onclick=async()=>{
+      const body=(ta.value||"").trim(); if(!body) return;
+      try{
+        await sb.from("share_guide_comments").insert({id:guideIdNew("gc"), guide_id:g.id, body, author_id:S.session.user.id, author_name:displayName().slice(0,24)});
+        await notifyGuideAuthor(g, body);
+        toast("댓글 등록"); render();
+      }catch(e){ alert(e.message||e); }
+    };
+    box.appendChild(ta); box.appendChild(send);
+  }
+  return box;
+}
+
 function viewTaxon(taxon){
   if(!taxon) return el(`<div class="empty">없음</div>`);
   if(!taxon._bodyLoaded){ ensureTaxonBody(taxon.id).then(()=>scheduleRender(20)); }
@@ -2977,11 +3658,16 @@ function viewTaxon(taxon){
   }
   const w=el(`<div></div>`); const crumb=el(`<nav class="crumb"></nav>`);
   const home=el(`<button type="button">Home</button>`); home.onclick=()=>{S.view=null;S.segment="home";render();}; crumb.appendChild(home);
-  ancestorsOf(taxon.id).forEach(t=>{ crumb.appendChild(el(`<span>›</span>`)); const b=el(`<button type="button">${esc(displaySciName(t))}</button>`); b.onclick=()=>{S.view={kind:"taxon",id:t.id};render();}; crumb.appendChild(b); });
+  const trail=ancestorsOf(taxon.id);
+  trail.forEach(t=>{ crumb.appendChild(el(`<span>›</span>`)); const b=el(`<button type="button">${esc(displaySciName(t))}</button>`); b.onclick=()=>{S.view={kind:"taxon",id:t.id};render();}; crumb.appendChild(b); });
   if(typeof SITE_KIND==="undefined" || SITE_KIND!=="ornamental") w.appendChild(crumb);
   const panel=el(`<div class="panel"></div>`);
   const head=el(`<div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:space-between"><div><div class="side-title">${RANK_LABEL[taxon.rank]}</div><h1>${esc(displaySciName(taxon))}</h1>${taxon.extinct?(isRecentExtinct(taxon)?`<div class="chip" style="margin:.25rem 0;display:inline-block">멸종·현세</div>`:`<div class="chip" style="margin:.25rem 0;display:inline-block">멸종·화석</div>`):""}<div class="muted">${esc(taxon.koreanName)}</div></div></div>`);
   const actions=el(`<div style="display:flex;flex-wrap:wrap;gap:.35rem"></div>`);
+  const star=el(`<button type="button" class="btn ${isStarred(taxon.id)?"btn-gold on":"btn-line"}">${isStarred(taxon.id)?"★":"☆"}</button>`);
+  star.onclick=()=>toggleStar(taxon);
+  actions.appendChild(star);
+
   if(canEditTaxon(taxon)){
     const edit=el(`<button type="button" class="btn btn-line">${isStructRank(taxon.rank)&&!isAdmin()?"설명 수정":"수정"}</button>`);
     edit.onclick=async()=>{ const full=await ensureTaxonBody(taxon.id); S.modal={type:"edit",taxon:{...(full||taxon)}}; render(); }; actions.appendChild(edit);
@@ -3095,7 +3781,7 @@ function viewTaxon(taxon){
       if(families.length===1){
         // 단형 상과: 과 대신 아과+속
         const onlyFam=families[0];
-        panel.appendChild(el(`<p class="muted" style="font-size:.8rem;margin:-.25rem 0 .45rem">과가 하나뿐인 상과 · 하위는 아과·속으로 표시 · <button type="button" class="btn btn-line" style="min-height:28px;font-size:.75rem;padding:.15rem .45rem;display:inline-flex;vertical-align:middle" id="openOnlyFam">${esc(displaySciName(onlyFam))}</button></p>`));
+        panel.appendChild(el(`<p class="muted" style="font-size:.8rem;margin:-.25rem 0 .45rem">과가 하나뿐인 상과 · 하위는 아과·속으로 표시 · <button type="button" class="btn btn-line" style="min-height:28px;font-size:.75rem;padding:.15rem .45rem;display:inline-flex;vertical-align:middle" id="openOnlyFam">${lineageNameHtml(onlyFam)}</button></p>`));
         const ob=panel.querySelector("#openOnlyFam");
         if(ob) ob.onclick=()=>{S.view={kind:"taxon",id:onlyFam.id};render();};
         appendSubfamilyGenusTree(panel, onlyFam);
@@ -3103,7 +3789,7 @@ function viewTaxon(taxon){
         // 과 없이 직접 달린 경우
         if(!kids.length) panel.appendChild(el(`<div class="empty">없음</div>`));
         else kids.forEach(k=>{
-          const b=el(`<button type="button" class="list-btn"><span class="chip">${RANK_LABEL[k.rank]}</span><em style="font-family:var(--serif)">${esc(displaySciName(k))}</em></button>`);
+          const b=el(`<button type="button" class="list-btn"><span class="chip">${RANK_LABEL[k.rank]}</span>${lineageNameHtml(k)}</button>`);
           b.onclick=()=>{S.view={kind:"taxon",id:k.id};render();};
           panel.appendChild(b);
         });
@@ -3111,7 +3797,7 @@ function viewTaxon(taxon){
         // 복수 과: 과마다 아과·속 트리
         families.forEach(fam=>{
           const wrap=el(`<div style="margin:.55rem 0 .75rem"></div>`);
-          const fb=el(`<button type="button" class="list-btn" style="margin-bottom:.35rem"><span class="chip">${RANK_LABEL.family}</span><em style="font-family:var(--serif)">${esc(displaySciName(fam))}</em></button>`);
+          const fb=el(`<button type="button" class="list-btn" style="margin-bottom:.35rem"><span class="chip">${RANK_LABEL.family}</span>${lineageNameHtml(fam)}</button>`);
           fb.onclick=()=>{S.view={kind:"taxon",id:fam.id};render();};
           wrap.appendChild(fb);
           appendSubfamilyGenusTree(wrap, fam);
@@ -3125,7 +3811,7 @@ function viewTaxon(taxon){
         const ul=el(`<ul class="tax-tree"></ul>`);
         gens.forEach(g=>{
           const li=el(`<li></li>`);
-          const b=el(`<button type="button" class="tax-item"><span class="chip">${RANK_LABEL.genus}</span><em>${esc(displaySciName(g))}</em></button>`);
+          const b=el(`<button type="button" class="tax-item"><span class="chip">${RANK_LABEL.genus}</span>${lineageNameHtml(g)}</button>`);
           b.onclick=()=>{S.view={kind:"taxon",id:g.id};render();};
           li.appendChild(b); ul.appendChild(li);
         });
@@ -3135,12 +3821,23 @@ function viewTaxon(taxon){
       // 절·속 등 기본 목록
       if(!kids.length) panel.appendChild(el(`<div class="empty">없음</div>`));
       else kids.forEach(k=>{
-        const b=el(`<button type="button" class="list-btn"><span class="chip">${RANK_LABEL[k.rank]}</span><em style="font-family:var(--serif)">${esc(displaySciName(k))}</em></button>`);
+        const b=el(`<button type="button" class="list-btn"><span class="chip">${RANK_LABEL[k.rank]}</span>${lineageNameHtml(k)}</button>`);
         b.onclick=()=>{S.view={kind:"taxon",id:k.id};render();};
         panel.appendChild(b);
       });
     }
   }
+  try{
+    const kidHead=[...panel.querySelectorAll("h2")].find(h=>h.textContent.trim()==="하위 계통");
+    if(kidHead){
+      const hold=el(`<div></div>`);
+      let n=kidHead.nextSibling;
+      while(n){ const nx=n.nextSibling; hold.appendChild(n); n=nx; }
+      const nKids=childrenOf(taxon.id).filter(lifeVisible).length;
+      kidHead.replaceWith(foldSection("하위 계통", nKids, hold));
+    }
+  }catch(e){}
+  try{ appendRelatedGuides(panel, taxon); }catch(e){}
   w.appendChild(panel); return w;
 }
 function stopSlideTimer(){ if(S.slideTimer){ clearInterval(S.slideTimer); S.slideTimer=null; } }
@@ -3149,7 +3846,7 @@ function updateSlideStageOnly(){
   // 슬라이드 인덱스만 바뀔 때 전체 render 없이 무대·카운트·썸네일만 갱신
   if(S.segment!=="slides"){ try{ startSlideTimer(); }catch(e){} return; }
   if(S.slideFs){ render(); return; }
-  const photos=slideGalleryPhotos();
+  const photos=slideGalleryPhotos().concat(guidePhotoItems());
   const n=Math.max(photos.length,1);
   const root=document.getElementById("root");
   if(!root){ render(); return; }
@@ -3163,7 +3860,7 @@ function updateSlideStageOnly(){
     const cap=(p.profileImageCaption||"").trim();
     const lic=(p.profileImageLicense||"").trim();
     stage.innerHTML=`<img class="theater-img" src="${esc(p.profileImageUrl)}" alt=""/><div class="theater-cap"><em>${esc(displaySciName(p))}</em><div class="muted">${esc(p.koreanName||"")}</div>${cap?`<div class="theater-meta">${esc(cap)}</div>`:""}${lic?`<div class="theater-lic">© ${esc(lic)}</div>`:""}</div>`;
-    stage.onclick=()=>{ try{jiggleEl(stage);}catch(e){} setTimeout(()=>{S.segment="taxonomy";S.view={kind:"taxon",id:p.id};S.slideFs=false;stopSlideTimer();render();},220);};
+    stage.onclick=()=>{ try{jiggleEl(stage);}catch(e){} setTimeout(()=>{openGalleryPhoto(p);},220);};
   } else {
     stage.innerHTML=`<div class="empty">프로필 이미지가 있는 종이 없습니다</div>`;
   }
@@ -3192,7 +3889,7 @@ function startSlideTimer(){
   }, S.slideMs||4500);
 }
 function viewSlides(){
-  const photos=slideGalleryPhotos();
+  const photos=slideGalleryPhotos().concat(guidePhotoItems());
   const n=Math.max(photos.length,1);
   if(S.slide>=photos.length) S.slide=0;
   const w=el(`<div class="theater ${S.slideFs?"fs":""}"></div>`);
@@ -3200,12 +3897,13 @@ function viewSlides(){
   const gBar=el(`<div class="tabs-mini" style="margin:0 0 .55rem;flex-wrap:wrap;gap:.35rem"></div>`);
   [["all","전체"],["land","랜드크랩"],["large","대란형 민물크랩"],["small","소란형 해수~기수•민물 크랩"]].forEach(([id,lab])=>{
     const on=(S.slideGallery||"all")===id;
-    const b=el(`<button type="button" class="btn ${on?"btn-gold":"btn-line"}" style="min-height:34px;font-size:.8rem">${lab}</button>`);
+    const b=el(`<button type="button" class="btn ${on?"btn-gold on":"btn-line"}" style="min-height:34px;font-size:.8rem">${lab}</button>`);
     b.onclick=()=>{
       try{sfx("tap")}catch(e){}
+      if((S.slideGallery||"all")===id) return;
       S.slideGallery=id; S.slide=0;
       /* slideGallery 세션만 */
-      render();
+      renderKeepScroll();
     };
     gBar.appendChild(b);
   });
@@ -3238,7 +3936,7 @@ function viewSlides(){
   if(photos.length){
     const p=photos[S.slide%n];
     stage.innerHTML=`<img class="theater-img" src="${esc(p.profileImageUrl)}" alt=""/><div class="theater-cap"><em>${esc(displaySciName(p))}</em><div class="muted">${esc(p.koreanName||"")}</div>${(p.profileImageCaption||"").trim()?`<div class="theater-meta">${esc(p.profileImageCaption)}</div>`:""}${(p.profileImageLicense||"").trim()?`<div class="theater-lic">© ${esc(p.profileImageLicense)}</div>`:""}</div>`;
-    stage.onclick=()=>{jiggleEl(stage); setTimeout(()=>{S.segment="taxonomy";S.view={kind:"taxon",id:p.id};S.slideFs=false;stopSlideTimer();render();},220);};
+    stage.onclick=()=>{jiggleEl(stage); setTimeout(()=>{openGalleryPhoto(p);},220);};
   } else stage.innerHTML=`<div class="empty">프로필 이미지가 있는 종이 없습니다</div>`;
   w.appendChild(stage);
   const nav=el(`<div class="theater-nav"></div>`);
@@ -3247,7 +3945,7 @@ function viewSlides(){
   const next=el(`<button type="button" class="btn btn-line">다음 ›</button>`);
   next.onclick=()=>{S.slide=(S.slide+1)%n; if(S.slideAuto) startSlideTimer(); if(S.slideFs) render(); else updateSlideStageOnly();};
   const open=el(`<button type="button" class="btn btn-gold">문서 열기</button>`);
-  open.onclick=()=>{ if(!photos.length) return; const p=photos[S.slide%n]; S.segment="taxonomy";S.view={kind:"taxon",id:p.id};S.slideFs=false;stopSlideTimer();render();};
+  open.onclick=()=>{ if(!photos.length) return; const p=photos[S.slide%n]; openGalleryPhoto(p);};
   nav.appendChild(prev); nav.appendChild(open); nav.appendChild(next); w.appendChild(nav);
   // thumb strip
   if(photos.length){
@@ -3342,7 +4040,7 @@ function viewFs(){
 }
 
 async function maybeResetPublicChat(){
-  try{ await sb.from("public_chat").update({image_url:null}).lt("image_expires_at", new Date().toISOString()).not("image_url","is",null); }catch(e){}
+  
 
   try{
     const {data:settings}=await sb.from("settings").select("key,value").in("key",["public_chat_reset_days","public_chat_last_reset"]);
@@ -3354,22 +4052,31 @@ async function maybeResetPublicChat(){
     if(now.getHours()>=5){
       const need=!last || (now-last)>=days*24*3600e3;
       if(need && isAdmin()){
-        await sb.from("public_chat").delete().neq("id","00000000-0000-0000-0000-000000000000");
+        await sb.from("public_chat").delete().eq("room", SITE_KIND).neq("id","00000000-0000-0000-0000-000000000000");
         await sb.from("settings").upsert({key:"public_chat_last_reset",value:now.toISOString()});
-        toast("공공 채팅방 주기 초기화");
+        toast("공공 토론방 주기 초기화");
       }
     }
   }catch(e){ console.warn("chat reset",e); }
 }
 function viewChat(){
   const w=el(`<div></div>`);
-  if(!isLogged()){ w.appendChild(el(`<div class="panel"><p>채팅은 로그인 후 이용할 수 있습니다.</p></div>`)); return w; }
+  if(!isLogged()){ w.appendChild(el(`<div class="panel"><p>토론은 로그인 후 이용할 수 있습니다.</p></div>`)); return w; }
   S.chatMode="public"; S.chatPeer=null;
-  if(isBlocked()){ w.appendChild(el(`<div class="panel"><p>차단된 계정은 채팅을 이용할 수 없습니다.</p></div>`)); return w; }
+  if(isBlocked()){ w.appendChild(el(`<div class="panel"><p>차단된 계정은 토론을 이용할 수 없습니다.</p></div>`)); return w; }
   {
 
     const panel=el(`<div class="panel chat-panel"></div>`);
-    panel.appendChild(el(`<div class="side-title">Public</div><h2 class="gold-text" style="margin:0 0 .5rem;font-size:1.2rem">공공 채팅방</h2><p class="muted" style="font-size:.8rem;margin:0 0 .6rem">초기화: ${S.publicChatResetDays||7}일 간격 · 오전 5시 기준</p>`));
+    const roomNow=activeChatRoom();
+    const roomBar=el(`<div class="tabs-mini gallery-cats" style="margin:0 0 .55rem;display:flex;flex-wrap:nowrap;gap:.35rem;overflow-x:auto"></div>`);
+    orderedChatRooms().forEach(r=>{
+      const on=r.id===roomNow;
+      const b=el(`<button type="button" class="btn ${on?"btn-gold on":"btn-line"}" style="min-height:32px;font-size:.75rem;flex:0 0 auto;white-space:nowrap">${esc(r.label)}</button>`);
+      b.onclick=()=>{ if(S.chatRoom===r.id) return; S.chatRoom=r.id; renderKeepScroll(); };
+      roomBar.appendChild(b);
+    });
+    panel.appendChild(roomBar);
+    panel.appendChild(el(`<div class="side-title">Discussion</div><h2 class="gold-text" style="margin:0 0 .5rem;font-size:1.2rem">${esc(chatRoomLabel(roomNow))} 토론</h2><p class="muted" style="font-size:.8rem;margin:0 0 .6rem">초기화: ${S.publicChatResetDays||7}일 간격 · 오전 5시 기준</p>`));
     if(isAdmin()){
       const opt=el(`<div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.6rem;align-items:center"><span class="muted" style="font-size:.8rem">초기화 간격</span></div>`);
       [1,2,3,4,5,6,7].forEach(d=>{
@@ -3378,16 +4085,16 @@ function viewChat(){
         opt.appendChild(b);
       });
       const clr=el(`<button type="button" class="btn btn-danger" style="min-height:30px;font-size:.75rem">지금 비우기</button>`);
-      clr.onclick=async()=>{ if(!confirm("공공 채팅을 모두 삭제할까요?")) return; try{ await sb.from("public_chat").delete().neq("id","00000000-0000-0000-0000-000000000000"); toast("비움"); render(); }catch(e){ alert(e.message||e);} };
+      clr.onclick=async()=>{ if(!confirm("공공 토론을 모두 삭제할까요?")) return; try{ await sb.from("public_chat").delete().eq("room", activeChatRoom()).neq("id","00000000-0000-0000-0000-000000000000"); toast("비움"); render(); }catch(e){ alert(e.message||e);} };
       opt.appendChild(clr);
-      const lock=el(`<button type="button" class="btn ${S.publicChatLocked?"btn-gold":"btn-line"}" style="min-height:30px;font-size:.75rem">${S.publicChatLocked?"채팅 잠금 해제":"채팅방 잠그기"}</button>`);
+      const lock=el(`<button type="button" class="btn ${S.publicChatLocked?"btn-gold":"btn-line"}" style="min-height:30px;font-size:.75rem">${S.publicChatLocked?"토론 잠금 해제":"토론방 잠그기"}</button>`);
       lock.onclick=async()=>{
         const next=!S.publicChatLocked;
-        if(next && !confirm("공공 채팅방을 잠글까요? 일반 유저는 글을 쓸 수 없습니다.")) return;
+        if(next && !confirm("공공 토론방을 잠글까요? 일반 유저는 글을 쓸 수 없습니다.")) return;
         try{
           await sb.from("settings").upsert({key:"public_chat_locked",value:next?"1":"0"});
           S.publicChatLocked=next;
-          toast(next?"공공 채팅 잠김":"공공 채팅 잠금 해제");
+          toast(next?"공공 토론 잠김":"공공 토론 잠금 해제");
           render();
         }catch(e){ alert(e.message||e); }
       };
@@ -3395,7 +4102,7 @@ function viewChat(){
       panel.appendChild(opt);
     }
     if(S.publicChatLocked){
-      panel.appendChild(el(`<div class="panel" style="margin-bottom:.5rem;padding:.55rem .7rem;border-color:color-mix(in oklab,var(--danger) 40%,var(--line))"><strong style="color:var(--danger)">채팅방 잠금</strong><span class="muted" style="font-size:.85rem"> · 관리자가 글쓰기를 막았습니다. 기록 열람만 가능합니다.</span></div>`));
+      panel.appendChild(el(`<div class="panel" style="margin-bottom:.5rem;padding:.55rem .7rem;border-color:color-mix(in oklab,var(--danger) 40%,var(--line))"><strong style="color:var(--danger)">토론방 잠금</strong><span class="muted" style="font-size:.85rem"> · 관리자가 글쓰기를 막았습니다. 기록 열람만 가능합니다.</span></div>`));
     }
     const log=el(`<div class="chat-log" id="pclog"></div>`);
     panel.appendChild(log);
@@ -3407,12 +4114,12 @@ function viewChat(){
           <label class="btn btn-line" style="cursor:pointer">사진<input id="pcimg" type="file" accept="image/*" hidden/></label>
           <button type="button" class="btn btn-gold" id="pcsend">전송</button>
         </div>
-        <div id="pcprev" class="muted"></div>
+        <div id="pcprev" class="chat-prev" hidden></div>
       </div>
     </div>`);
     let pendingImg=null;
     if(S.publicChatLocked && !isAdmin()){
-      const ta=form.querySelector("#pcmsg"); if(ta){ ta.disabled=true; ta.placeholder="잠긴 채팅방입니다"; }
+      const ta=form.querySelector("#pcmsg"); if(ta){ ta.disabled=true; ta.placeholder="잠긴 토론방입니다"; }
       const send=form.querySelector("#pcsend"); if(send) send.disabled=true;
       const img=form.querySelector("#pcimg"); if(img) img.disabled=true;
     }
@@ -3421,7 +4128,13 @@ function viewChat(){
       const f=e.target.files?.[0]; if(!f) return;
       if(f.size>900000){ toast("이미지는 약 900KB 이하로"); e.target.value=""; return; }
       const rd=new FileReader();
-      rd.onload=()=>{ pendingImg=rd.result; form.querySelector("#pcprev").textContent="사진 첨부됨 (1일 후 자동 삭제)"; };
+      rd.onload=()=>{
+        pendingImg=rd.result;
+        const box=form.querySelector("#pcprev");
+        box.hidden=false;
+        box.innerHTML=`<img src="${pendingImg}" alt="첨부 미리보기"/><span class="muted" style="font-size:.75rem">첨부됨</span><button type="button" class="btn btn-ghost" id="pcclear" style="min-height:28px;font-size:.72rem">빼기</button>`;
+        box.querySelector("#pcclear").onclick=()=>{ pendingImg=null; box.hidden=true; box.innerHTML=""; form.querySelector("#pcimg").value=""; };
+      };
       rd.readAsDataURL(f);
     };
     panel.appendChild(form);
@@ -3430,7 +4143,7 @@ function viewChat(){
     (async()=>{
       try{
         const PUB_CHAT_MAX=120;
-        let {data}=await sb.from("public_chat").select("*").order("created_at",{ascending:true}).limit(PUB_CHAT_MAX+50);
+        let {data}=await sb.from("public_chat").select("*").eq("room", activeChatRoom()).order("created_at",{ascending:true}).limit(PUB_CHAT_MAX+50);
         // 한도 초과 시 오래된 메시지 자동 삭제
         if(data && data.length>PUB_CHAT_MAX){
           const overflow=data.slice(0, data.length-PUB_CHAT_MAX);
@@ -3466,10 +4179,16 @@ function viewChat(){
           const nick=formatStaffNick(name, role);
           const av=effectiveAvatar((live&&live.avatar_url)||m.avatar_url,m.user_id,name);
           const body=linkify(m.body||"");
-          const imgOk=m.image_url && m.image_expires_at && new Date(m.image_expires_at)>new Date();
-          const imgHtml=imgOk?`<img class="chat-img" src="${esc(m.image_url)}" alt="첨부" loading="lazy"/>`:"";
-          const row=el(`<div class="chat-row"><img class="chat-av" src="${esc(av)}" alt=""/><div class="chat-bubble"><button type="button" class="chat-name">${nick.html}</button><div class="chat-text">${body.replace(/@([^\s,，]+)/g,'<span class="chat-at">@$1</span>')}</div>${imgHtml}</div></div>`);
+          const imgHtml=m.image_url?`<img class="chat-img" src="${esc(m.image_url)}" alt="첨부" loading="lazy"/>`:"";
+          const delBtn=isAdmin()?`<button type="button" class="btn btn-line chat-del" style="min-height:26px;font-size:.7rem;padding:0 .4rem;margin-top:.3rem">삭제</button>`:"";
+          const row=el(`<div class="chat-row"><img class="chat-av" src="${esc(av)}" alt=""/><div class="chat-bubble"><button type="button" class="chat-name">${nick.html}</button><div class="chat-text">${body.replace(/@([^\s,，]+)/g,'<span class="chat-at">@$1</span>')}</div>${imgHtml}${delBtn}</div></div>`);
           row.querySelector(".chat-name").onclick=()=>{ S.modal={type:"chatUserMenu",userId:m.user_id,displayName:name}; render(); };
+          const del=row.querySelector(".chat-del");
+          if(del) del.onclick=async()=>{
+            if(!confirm("이 글을 삭제할까요? 첨부 사진도 함께 지워집니다.")) return;
+            try{ await sb.from("public_chat").delete().eq("id", m.id); toast("삭제됨"); render(); }
+            catch(e){ alert(e.message||e); }
+          };
           log.appendChild(row);
         });
         try{ applyChatFilter(); }catch(e){}
@@ -3482,26 +4201,26 @@ function viewChat(){
         } else {
           log.scrollTop=log.scrollHeight;
         }
-      }catch(e){ log.innerHTML=`<div class="empty">채팅 테이블 확인 필요 (SQL 실행)</div>`; console.warn(e); }
+      }catch(e){ log.innerHTML=`<div class="empty">토론 테이블 확인 필요 (SQL 실행)</div>`; console.warn(e); }
     })();
     if(S.chatMention){ form.querySelector("#mention-hint").textContent="멘션: @"+S.chatMention; form.querySelector("#pcmsg").value="@"+S.chatMention+", "; }
     form.querySelector("#pcsend").onclick=async()=>{
       let text=(form.querySelector("#pcmsg").value||"").trim();
       if(!text && !pendingImg) return;
       if(isBlocked()) return toast("차단됨");
-      if(S.publicChatLocked && !isAdmin()) return toast("채팅방이 잠겨 있습니다");
+      if(S.publicChatLocked && !isAdmin()) return toast("토론방이 잠겨 있습니다");
       if(containsBanned(text)) return toast("금지어가 포함되어 있습니다");
       try{
-        const expires=new Date(Date.now()+24*3600e3).toISOString();
         await sb.from("public_chat").insert({
+          room: activeChatRoom(),
           user_id:S.session.user.id,
           display_name:displayName().slice(0,12),
           avatar_url:S.profile?.avatar_url||ASSET_CRAB,
           body:(text||"(사진)").slice(0,1000),
           image_url: pendingImg||null,
-          image_expires_at: pendingImg?expires:null
+          image_expires_at: pendingImg?new Date('2099-01-01').toISOString():null
         });
-        pendingImg=null; S.chatMention=""; form.querySelector("#pcmsg").value=""; render();
+        pendingImg=null; S.chatMention=""; form.querySelector("#pcmsg").value=""; const box=form.querySelector("#pcprev"); if(box){ box.hidden=true; box.innerHTML=""; } render();
       }catch(e){ alert(e.message||e); }
     };
 
@@ -3652,6 +4371,7 @@ function viewNotif(){
       ["report","신고"],
       ["block_request","차단"],
       ["edit","수정"],
+      ["guide_comment","댓글"],
     ];
     const tabs=el(`<div class="tabs-mini notif-filters" style="margin-bottom:.65rem;flex-wrap:wrap"></div>`);
     filters.forEach(([id,lab])=>{
@@ -3678,15 +4398,20 @@ function viewNotif(){
     if(S.notifFilter!=="all") list=list.filter(n=>(n.kind||"")===S.notifFilter);
     if(!list.length) body.appendChild(el(`<div class="empty">${S.notifFilter==="all"?"알림이 없습니다":"해당 유형 알림 없음"}</div>`));
     list.forEach(n=>{
-      const kindLabel={suggestion:"건의",report:"신고",block_request:"차단",message:"메시지",edit:"수정"}[n.kind]||n.kind||"";
+      const kindLabel={suggestion:"건의",report:"신고",block_request:"차단",message:"메시지",edit:"수정",guide_comment:"댓글"}[n.kind]||n.kind||"";
       const wrap=el(`<div class="notif-swipe" style="margin-bottom:.45rem"></div>`);
       const actions=el(`<div class="notif-swipe-actions">삭제</div>`);
       const inner=el(`<div class="notif-swipe-inner notif-item ${n.read_at?"":"unread"}"><div style="display:flex;justify-content:space-between;gap:.5rem;align-items:baseline"><div style="font-weight:600">${esc(n.title||kindLabel)}</div><span class="muted" style="font-size:.7rem;white-space:nowrap">${esc(kindLabel)}</span></div><div class="muted" style="font-size:.85rem;margin-top:.25rem">${esc(n.body||"")}</div></div>`);
       
       if(n.kind==="message"){
-        // 1:1 채팅 제거됨 — 알림만 표시
-        const open=el(`<button type="button" class="btn btn-line" style="margin-top:.45rem;min-height:34px">공공 채팅</button>`);
+        // 1:1 토론 제거됨 — 알림만 표시
+        const open=el(`<button type="button" class="btn btn-line" style="margin-top:.45rem;min-height:34px">공공 토론</button>`);
         open.onclick=(e)=>{ e.stopPropagation(); S.notifOpen=false; S.segment="chat"; S.chatMode="public"; S.modal=null; render(); };
+        inner.appendChild(open);
+      }
+      if(n.kind==="guide_comment" && n.meta&&n.meta.guide_id){
+        const open=el(`<button type="button" class="btn btn-line" style="margin-top:.45rem;min-height:34px">가이드 열기</button>`);
+        open.onclick=(e)=>{ e.stopPropagation(); S.notifOpen=false; S.segment="guides"; S.guideId=n.meta.guide_id; S.modal=null; render(); };
         inner.appendChild(open);
       }
       let startX=0, dx=0, open=false;
@@ -4013,7 +4738,7 @@ function viewModal(){
     let photoDirty=false; // 이번 모달에서 사진을 바꿨는지
     const isData=u=>/^data:image\//i.test(u||"");
     modal.style.maxWidth="420px";
-    modal.innerHTML=`<h2 class="gold" style="font-family:var(--serif);margin-top:0">프로필</h2>
+    modal.innerHTML=`<h2 class="gold" style="font-family:var(--serif);margin-top:0">프로필</h2><button type="button" class="btn btn-line" id="myp" style="margin-bottom:.6rem">마이페이지</button>
       <div style="display:flex;align-items:center;gap:.85rem;margin-bottom:.85rem">
         <img id="avprev" alt="" style="width:72px;height:72px;border-radius:50%;border:1px solid color-mix(in oklab,var(--gold) 40%,transparent);background:#111;object-fit:cover;flex-shrink:0"/>
         <div style="display:flex;flex-direction:column;gap:.35rem;min-width:0;flex:1">
@@ -4036,6 +4761,8 @@ function viewModal(){
     const avInp=modal.querySelector("#av");
     const hint=modal.querySelector("#avhint");
     const fileInp=modal.querySelector("#avfile");
+    const myp=modal.querySelector("#myp");
+    if(myp) myp.onclick=()=>{ S.modal=null; S.segment="mypage"; S.view=null; render(); };
     // URL 칸에는 http만 표시 (data URL 금지)
     if(pendingAv && !isData(pendingAv) && !isPlaceholderAvatar(pendingAv)) avInp.value=pendingAv;
     const setHint=()=>{
@@ -4138,7 +4865,7 @@ function viewModal(){
   else if(m.type==="deleteAccount"){
     modal.style.maxWidth="400px";
     modal.innerHTML=`<h2 class="gold" style="font-family:var(--serif);margin-top:0">계정 삭제</h2>
-      <p class="muted" style="font-size:.9rem;line-height:1.5;margin:0 0 .75rem">계정을 삭제하면 프로필 등 이 서비스에 연결된 데이터가 제거됩니다. 공공 채팅 기록의 표시 이름은 익명 처리될 수 있습니다.<br/><br/><b style="color:var(--danger)">이 작업은 되돌릴 수 없습니다.</b></p>
+      <p class="muted" style="font-size:.9rem;line-height:1.5;margin:0 0 .75rem">계정을 삭제하면 프로필 등 이 서비스에 연결된 데이터가 제거됩니다. 공공 토론 기록의 표시 이름은 익명 처리될 수 있습니다.<br/><br/><b style="color:var(--danger)">이 작업은 되돌릴 수 없습니다.</b></p>
       <label class="field"><span>확인을 위해 <b>삭제</b> 라고 입력</span><input id="delconfirm" autocomplete="off" placeholder="삭제"/></label>
       <label class="field"><span>비밀번호 확인</span><div class="pw-wrap"><input id="delpw" type="password" autocomplete="current-password"/><button type="button" class="pw-toggle" id="tpdel" aria-label="보기">보기</button></div></label>
       <p id="delerr" class="muted" style="color:var(--danger);min-height:1.2em;font-size:.85rem;margin:0 0 .5rem"></p>
@@ -4252,30 +4979,35 @@ function viewModal(){
         modal.style.maxWidth="min(520px,96vw)";
         const allowed=new Set(validParentRanks(tax.rank));
         modal.innerHTML=`<h2 class="gold" style="font-family:var(--serif);margin-top:0">계통 위치 옮기기</h2>
-          <p class="muted" style="font-size:.85rem;margin:0 0 .55rem"><em>${esc(tax.scientificName)}</em> (${esc(RANK_LABEL[tax.rank]||tax.rank)}) · 금색만 선택 가능</p>
+          <p class="muted" style="font-size:.85rem;margin:0 0 .45rem"><em>${esc(tax.scientificName)}</em> (${esc(RANK_LABEL[tax.rank]||tax.rank)})</p>
+          <label class="field" style="margin-bottom:.45rem"><span>검색</span><input id="mvq" placeholder="학명 · 국명" autocomplete="off"/></label>
           <div id="mvList" style="max-height:min(55vh,420px);overflow:auto"></div>
           <button class="btn btn-ghost" id="c" style="width:100%;margin-top:.65rem">닫기</button>`;
         modal.querySelector("#c").onclick=close;
         const box=modal.querySelector("#mvList");
-        const candidates=Object.values(S.taxa)
-          .filter(t=>t.id!==tax.id)
+        const isDescOf=t=>{
+          let p=t, g=0, seen=new Set();
+          while(p && g++<30 && !seen.has(p.id)){
+            seen.add(p.id);
+            if(p.id===tax.id) return true;
+            p=p.parentId?S.taxa[p.parentId]:null;
+          }
+          return false;
+        };
+        const enabled=Object.values(S.taxa)
+          .filter(t=>t.id!==tax.id && allowed.has(t.rank) && !isDescOf(t))
           .sort((a,b)=>RANK_ORDER.indexOf(a.rank)-RANK_ORDER.indexOf(b.rank)||(a.scientificName||"").localeCompare(b.scientificName||""));
-        if(!candidates.length) box.innerHTML=`<div class="empty">후보 없음</div>`;
-        candidates.forEach(t=>{
-          const ok=allowed.has(t.rank);
-          // 자기 자손으로는 이동 불가
-          let isDesc=false;
-          let p=t, g=0;
-          while(p && g++<30){ if(p.parentId===tax.id){ isDesc=true; break;} p=p.parentId?S.taxa[p.parentId]:null; }
-          // better: walk ancestors of t
-          isDesc=false; p=t; g=0;
-          while(p && g++<30){ if(p.id===tax.id){ isDesc=true; break;} p=p.parentId?S.taxa[p.parentId]:null; }
-          const enabled=ok && !isDesc;
-          const row=el(`<button type="button" class="list-btn" style="width:100%;opacity:${enabled?"1":".45"};cursor:${enabled?"pointer":"not-allowed"};${enabled?"border-color:color-mix(in oklab,var(--gold) 55%,transparent);":""}">
-            <span class="chip">${esc(RANK_LABEL[t.rank]||t.rank)}</span>
-            <em style="font-family:var(--serif);${enabled?"color:var(--gold);":"color:var(--muted)"}">${esc(t.scientificName)}</em>
-          </button>`);
-          if(enabled){
+        const paint=()=>{
+          const q=(modal.querySelector("#mvq").value||"").trim().toLowerCase();
+          const rows=!q?enabled:enabled.filter(t=>`${t.scientificName||""} ${t.koreanName||""}`.toLowerCase().includes(q));
+          box.innerHTML="";
+          if(!rows.length){ box.innerHTML=`<div class="empty">${q?"검색 결과 없음":"옮길 수 있는 상위 없음"}</div>`; return; }
+          rows.forEach(t=>{
+            const row=el(`<button type="button" class="list-btn" style="width:100%;border-color:color-mix(in oklab,var(--gold) 55%,transparent)">
+              <span class="chip">${esc(RANK_LABEL[t.rank]||t.rank)}</span>
+              <em style="font-family:var(--serif);color:var(--gold)">${esc(t.scientificName)}</em>
+              ${t.koreanName?`<span class="muted" style="margin-left:.35rem">${esc(t.koreanName)}</span>`:""}
+            </button>`);
             row.onclick=async()=>{
               if(!confirm(`「${tax.scientificName}」을(를)\n「${t.scientificName}」(${RANK_LABEL[t.rank]}) 아래로 옮길까요?`)) return;
               try{
@@ -4285,11 +5017,11 @@ function viewModal(){
                 S.modal=null; S.view={kind:"taxon",id:tax.id}; render();
               }catch(e){ alert(e.message||e); }
             };
-          } else {
-            row.disabled=true;
-          }
-          box.appendChild(row);
-        });
+            box.appendChild(row);
+          });
+        };
+        modal.querySelector("#mvq").oninput=paint;
+        paint();
       }
     }
   }
@@ -4838,9 +5570,11 @@ function viewModal(){
     else {
       modal.style.maxWidth="min(520px,96vw)";
       modal.innerHTML=`<h2 class="gold" style="font-family:var(--serif);margin-top:0">도감 교차 링크</h2>
-        <p class="muted" style="font-size:.85rem;margin-top:-.2rem">각 시작화면·안내 버튼이 이 주소를 사용합니다. 비워 두면 버튼은 안내만 합니다.</p>
+        <p class="muted" style="font-size:.85rem;margin-top:-.2rem">네 도감이 같은 settings 행을 같이 봅니다. 여기서 저장하면 한국어 게·관상용 게·관상용 가재·한국어 십각류에 동시에 반영됩니다. 비워 두면 안내만 하고, 지금 도감 버튼은 이 화면으로 들어갑니다.</p>
         <label class="field"><span>한국어 게 도감 URL</span><input id="linkKr" type="url" placeholder="https://..." value="${esc(S.siteLinkKorean||"")}"/></label>
         <label class="field"><span>관상용 게 도감 URL</span><input id="linkOrn" type="url" placeholder="https://..." value="${esc(S.siteLinkOrnamental||"")}"/></label>
+        <label class="field"><span>관상용 가재 도감 URL</span><input id="linkCray" type="url" placeholder="https://..." value="${esc(S.siteLinkCrayfish||"")}"/></label>
+        <label class="field"><span>한국어 십각류 도감 URL</span><input id="linkDec" type="url" placeholder="https://..." value="${esc(S.siteLinkDecapoda||"")}"/></label>
         <div style="display:flex;gap:.45rem;margin-top:.75rem">
           <button type="button" class="btn btn-gold" id="save" style="flex:1">저장</button>
           <button type="button" class="btn btn-ghost" id="c">닫기</button>
@@ -4849,12 +5583,16 @@ function viewModal(){
       modal.querySelector("#save").onclick=async()=>{
         const kr=(modal.querySelector("#linkKr").value||"").trim();
         const orn=(modal.querySelector("#linkOrn").value||"").trim();
+        const cray=(modal.querySelector("#linkCray").value||"").trim();
+        const dec=(modal.querySelector("#linkDec").value||"").trim();
         try{
           const {error:e1}=await sb.from("settings").upsert({key:"site_link_korean",value:kr},{onConflict:"key"});
           const {error:e2}=await sb.from("settings").upsert({key:"site_link_ornamental",value:orn},{onConflict:"key"});
-          if(e1||e2) throw (e1||e2);
-          S.siteLinkKorean=kr; S.siteLinkOrnamental=orn;
-          toast("교차 링크 저장됨"); close();
+          const {error:e3}=await sb.from("settings").upsert({key:"site_link_crayfish",value:cray},{onConflict:"key"});
+          const {error:e4}=await sb.from("settings").upsert({key:"site_link_decapoda",value:dec},{onConflict:"key"});
+          if(e1||e2||e3||e4) throw (e1||e2||e3||e4);
+          S.siteLinkKorean=kr; S.siteLinkOrnamental=orn; S.siteLinkCrayfish=cray; S.siteLinkDecapoda=dec;
+          toast("교차 링크 저장됨 · 네 도감 공통"); close();
         }catch(e){ alert(e.message||e); }
       };
     }
@@ -4896,7 +5634,7 @@ function viewModal(){
         </label>
         <label style="display:flex;align-items:flex-start;gap:.45rem;margin:.5rem 0;font-size:.9rem;cursor:pointer">
           <input type="checkbox" id="pPub" style="margin-top:.2rem;accent-color:var(--gold)"/>
-          <span><b>공공 채팅 전부 삭제</b><br/><span class="muted" style="font-size:.78rem">public_chat 테이블</span></span>
+          <span><b>공공 토론 전부 삭제</b><br/><span class="muted" style="font-size:.78rem">public_chat 테이블</span></span>
         </label>
         <div style="display:flex;gap:.5rem;justify-content:flex-end;margin-top:.8rem">
           <button class="btn btn-ghost" id="c">취소</button>
@@ -4911,7 +5649,7 @@ function viewModal(){
         const parts=[];
         if(doRev) parts.push("문서 역사");
         if(doMsg) parts.push("구 메시지 데이터");
-        if(doPub) parts.push("공공 채팅");
+        if(doPub) parts.push("공공 토론");
         if(!confirm("정말 삭제할까요?\n\n· "+parts.join("\n· ")+"\n\n이 작업은 되돌릴 수 없습니다.")) return;
         if(!confirm("최종 확인: 선택한 데이터를 영구 삭제합니다.")) return;
         const errs=[];
@@ -4930,9 +5668,9 @@ function viewModal(){
         }
         if(doPub){
           try{
-            const {error}=await sb.from("public_chat").delete().neq("id","00000000-0000-0000-0000-000000000000");
-            if(error) errs.push("공공채팅: "+error.message);
-          }catch(e){ errs.push("공공채팅: "+(e.message||e)); }
+            const {error}=await sb.from("public_chat").delete().eq("room", SITE_KIND).neq("id","00000000-0000-0000-0000-000000000000");
+            if(error) errs.push("공공토론: "+error.message);
+          }catch(e){ errs.push("공공토론: "+(e.message||e)); }
         }
         if(errs.length) alert("일부 실패:\n"+errs.join("\n")+"\n\nRLS 삭제 정책이 필요할 수 있습니다.");
         else toast("삭제 완료");
@@ -5053,7 +5791,7 @@ function viewModal(){
           <li><b>홈</b> — 슬라이드, 상과 목록, 생물 목록</li>
           <li><b>종류</b> — 관상게 도감 분류와 문서</li>
           <li><b>슬라이드 쇼</b> — 사진 감상과 미디어 자료</li>
-          <li><b>채팅</b> — 공공 채팅방</li>
+          <li><b>토론</b> — 공공 토론방</li>
           <li><b>기여 순위</b> — 편집 기여도</li>
         </ul></div>
       <div class="help-sec"><h3>검색</h3>
@@ -5076,7 +5814,7 @@ function viewModal(){
     else {
       modal.style.maxWidth="520px";
       modal.innerHTML=`<h2 class="gold" style="font-family:var(--serif);margin-top:0">차단 사용자 목록</h2>
-        <p class="muted" style="font-size:.85rem;margin-top:-.1rem">문서 수정·채팅이 제한된 계정입니다.</p>
+        <p class="muted" style="font-size:.85rem;margin-top:-.1rem">문서 수정·토론이 제한된 계정입니다.</p>
         <div id="blList" style="max-height:55vh;overflow:auto;margin:.55rem 0"><div class="muted">불러오는 중…</div></div>
         <button class="btn btn-ghost" id="c" style="width:100%">닫기</button>`;
       modal.querySelector("#c").onclick=close;
@@ -5155,11 +5893,16 @@ function viewModal(){
       }
     }
   }
-  else if(m.type==="quickMenu"){
+  else if(m.type==="topMore"){
+    modal.innerHTML=`<h2 class="gold" style="font-family:var(--serif);margin-top:0">더보기</h2><div style="display:flex;flex-direction:column;gap:.45rem"><button type="button" class="btn btn-line" id="tm-opt">설정</button><button type="button" class="btn btn-line" id="tm-menu">메뉴</button></div><button class="btn btn-ghost" id="c" style="margin-top:.75rem;width:100%">닫기</button>`;
+    modal.querySelector("#c").onclick=close;
+    modal.querySelector("#tm-opt").onclick=()=>{S.modal=null;S.segment="options";S.view=null;S.slideFs=false;render();};
+    modal.querySelector("#tm-menu").onclick=()=>{S.modal={type:"quickMenu"};render();};
+  } else if(m.type==="quickMenu"){
     modal.innerHTML=`<h2 class="gold" style="font-family:var(--serif);margin-top:0">메뉴</h2><div class="menu-grid" id="mg"></div><button class="btn btn-ghost" id="c" style="margin-top:.75rem;width:100%">닫기</button>`;
     modal.querySelector("#c").onclick=close;
     const mg=modal.querySelector("#mg");
-    [["홈","home"],["계통 분류","taxonomy"],["슬라이드","slides"],["채팅","chat"],["기여 순위","rankings"],["설정","options"]].forEach(([lab,id])=>{
+    [["홈","home"],["계통 분류","taxonomy"],["슬라이드","slides"],["토론","chat"],["기여 순위","rankings"],["설정","options"]].forEach(([lab,id])=>{
       const b=el(`<button type="button" class="btn btn-line menu-item">${lab}</button>`);
       b.onclick=()=>{S.segment=id;S.view=null;S.modal=null;S.slideFs=false;render();}; mg.appendChild(b);
     });
@@ -5230,8 +5973,8 @@ function viewModal(){
     modal.querySelector("#mn").onclick=()=>{S.chatMention=m.displayName||"";S.segment="chat";S.chatMode="public";S.modal=null;render();};
   }
   else if(m.type==="chat"){
-    modal.innerHTML=`<p class="muted">1:1 채팅은 더 이상 지원하지 않습니다. 공공 채팅방을 이용해 주세요.</p>
-      <button class="btn btn-gold" id="go" style="width:100%;margin-top:.5rem">공공 채팅으로</button>
+    modal.innerHTML=`<p class="muted">1:1 토론은 더 이상 지원하지 않습니다. 공공 토론방을 이용해 주세요.</p>
+      <button class="btn btn-gold" id="go" style="width:100%;margin-top:.5rem">공공 토론으로</button>
       <button class="btn btn-ghost" id="c" style="width:100%;margin-top:.35rem">닫기</button>`;
     modal.querySelector("#c").onclick=close;
     modal.querySelector("#go").onclick=()=>{ S.modal=null; S.segment="chat"; S.chatMode="public"; render(); };
